@@ -60,6 +60,13 @@ public class LockCas {
         try {
             for (;i>0;i--){
                 total += i;
+                try {
+                    if(i % 100 == 0) {
+                        TimeUnit.MILLISECONDS.sleep(1);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             System.out.println("-------"+total);
             countDownLatch.countDown();

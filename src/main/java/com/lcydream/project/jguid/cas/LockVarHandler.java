@@ -14,6 +14,9 @@ public class LockVarHandler {
 
     private static int total;
 
+    /**
+     * jdk1.9后新增
+     */
     private static VarHandle HANDLE = null;
 
     static {
@@ -69,6 +72,13 @@ public class LockVarHandler {
         try {
             for (;i>0;i--){
                 total += i;
+                try {
+                    if(i % 100 == 0) {
+                        TimeUnit.MILLISECONDS.sleep(1);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             System.out.println("-------"+total);
             countDownLatch.countDown();
