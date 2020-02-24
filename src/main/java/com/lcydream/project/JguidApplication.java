@@ -1,4 +1,4 @@
-package com.lcydream.project.jguid;
+package com.lcydream.project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
