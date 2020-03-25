@@ -1,0 +1,219 @@
+Classfile /Users/a/softwork/java/ideawork/im/gitlab/jguid/target/classes/com/lcydream/project/jguid/basics/AddOperationTest.class
+  Last modified 2020年3月25日; size 1942 bytes
+  SHA-256 checksum 061f9017e0a4d08cf95bcb2eadc304d94a6279a122eed19b49657b65d7fa913a
+  Compiled from "AddOperationTest.java"
+public class com.lcydream.project.jguid.basics.AddOperationTest
+  minor version: 0
+  major version: 55
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #22                         // com/lcydream/project/jguid/basics/AddOperationTest
+  super_class: #23                        // java/lang/Object
+  interfaces: 0, fields: 2, methods: 4, attributes: 3
+Constant pool:
+    #1 = Methodref          #23.#48       // java/lang/Object."<init>":()V
+    #2 = Integer            100000
+    #3 = Class              #49           // java/lang/Thread
+    #4 = InvokeDynamic      #0:#54        // #0:run:()Ljava/lang/Runnable;
+    #5 = Methodref          #3.#55        // java/lang/Thread."<init>":(Ljava/lang/Runnable;)V
+    #6 = Methodref          #3.#56        // java/lang/Thread.start:()V
+    #7 = Fieldref           #57.#58       // java/util/concurrent/TimeUnit.SECONDS:Ljava/util/concurrent/TimeUnit;
+    #8 = Long               3l
+   #10 = Methodref          #57.#59       // java/util/concurrent/TimeUnit.sleep:(J)V
+   #11 = Class              #60           // java/lang/InterruptedException
+   #12 = Methodref          #11.#61       // java/lang/InterruptedException.printStackTrace:()V
+   #13 = Fieldref           #62.#63       // java/lang/System.out:Ljava/io/PrintStream;
+   #14 = Fieldref           #22.#64       // com/lcydream/project/jguid/basics/AddOperationTest.sum:I
+   #15 = Methodref          #65.#66       // java/io/PrintStream.println:(I)V
+   #16 = Fieldref           #22.#67       // com/lcydream/project/jguid/basics/AddOperationTest.sumLong:J
+   #17 = Methodref          #65.#68       // java/io/PrintStream.println:(J)V
+   #18 = Fieldref           #57.#69       // java/util/concurrent/TimeUnit.MICROSECONDS:Ljava/util/concurrent/TimeUnit;
+   #19 = Class              #70           // java/util/Random
+   #20 = Methodref          #19.#48       // java/util/Random."<init>":()V
+   #21 = Methodref          #19.#71       // java/util/Random.nextInt:(I)I
+   #22 = Class              #72           // com/lcydream/project/jguid/basics/AddOperationTest
+   #23 = Class              #73           // java/lang/Object
+   #24 = Utf8               sum
+   #25 = Utf8               I
+   #26 = Utf8               sumLong
+   #27 = Utf8               J
+   #28 = Utf8               <init>
+   #29 = Utf8               ()V
+   #30 = Utf8               Code
+   #31 = Utf8               LineNumberTable
+   #32 = Utf8               LocalVariableTable
+   #33 = Utf8               this
+   #34 = Utf8               Lcom/lcydream/project/jguid/basics/AddOperationTest;
+   #35 = Utf8               main
+   #36 = Utf8               ([Ljava/lang/String;)V
+   #37 = Utf8               i
+   #38 = Utf8               e
+   #39 = Utf8               Ljava/lang/InterruptedException;
+   #40 = Utf8               args
+   #41 = Utf8               [Ljava/lang/String;
+   #42 = Utf8               StackMapTable
+   #43 = Utf8               MethodParameters
+   #44 = Utf8               lambda$main$0
+   #45 = Utf8               <clinit>
+   #46 = Utf8               SourceFile
+   #47 = Utf8               AddOperationTest.java
+   #48 = NameAndType        #28:#29       // "<init>":()V
+   #49 = Utf8               java/lang/Thread
+   #50 = Utf8               BootstrapMethods
+   #51 = MethodHandle       6:#74         // REF_invokeStatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+   #52 = MethodType         #29           //  ()V
+   #53 = MethodHandle       6:#75         // REF_invokeStatic com/lcydream/project/jguid/basics/AddOperationTest.lambda$main$0:()V
+   #54 = NameAndType        #76:#77       // run:()Ljava/lang/Runnable;
+   #55 = NameAndType        #28:#78       // "<init>":(Ljava/lang/Runnable;)V
+   #56 = NameAndType        #79:#29       // start:()V
+   #57 = Class              #80           // java/util/concurrent/TimeUnit
+   #58 = NameAndType        #81:#82       // SECONDS:Ljava/util/concurrent/TimeUnit;
+   #59 = NameAndType        #83:#84       // sleep:(J)V
+   #60 = Utf8               java/lang/InterruptedException
+   #61 = NameAndType        #85:#29       // printStackTrace:()V
+   #62 = Class              #86           // java/lang/System
+   #63 = NameAndType        #87:#88       // out:Ljava/io/PrintStream;
+   #64 = NameAndType        #24:#25       // sum:I
+   #65 = Class              #89           // java/io/PrintStream
+   #66 = NameAndType        #90:#91       // println:(I)V
+   #67 = NameAndType        #26:#27       // sumLong:J
+   #68 = NameAndType        #90:#84       // println:(J)V
+   #69 = NameAndType        #92:#82       // MICROSECONDS:Ljava/util/concurrent/TimeUnit;
+   #70 = Utf8               java/util/Random
+   #71 = NameAndType        #93:#94       // nextInt:(I)I
+   #72 = Utf8               com/lcydream/project/jguid/basics/AddOperationTest
+   #73 = Utf8               java/lang/Object
+   #74 = Methodref          #95.#96       // java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+   #75 = Methodref          #22.#97       // com/lcydream/project/jguid/basics/AddOperationTest.lambda$main$0:()V
+   #76 = Utf8               run
+   #77 = Utf8               ()Ljava/lang/Runnable;
+   #78 = Utf8               (Ljava/lang/Runnable;)V
+   #79 = Utf8               start
+   #80 = Utf8               java/util/concurrent/TimeUnit
+   #81 = Utf8               SECONDS
+   #82 = Utf8               Ljava/util/concurrent/TimeUnit;
+   #83 = Utf8               sleep
+   #84 = Utf8               (J)V
+   #85 = Utf8               printStackTrace
+   #86 = Utf8               java/lang/System
+   #87 = Utf8               out
+   #88 = Utf8               Ljava/io/PrintStream;
+   #89 = Utf8               java/io/PrintStream
+   #90 = Utf8               println
+   #91 = Utf8               (I)V
+   #92 = Utf8               MICROSECONDS
+   #93 = Utf8               nextInt
+   #94 = Utf8               (I)I
+   #95 = Class              #98           // java/lang/invoke/LambdaMetafactory
+   #96 = NameAndType        #99:#103      // metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+   #97 = NameAndType        #44:#29       // lambda$main$0:()V
+   #98 = Utf8               java/lang/invoke/LambdaMetafactory
+   #99 = Utf8               metafactory
+  #100 = Class              #105          // java/lang/invoke/MethodHandles$Lookup
+  #101 = Utf8               Lookup
+  #102 = Utf8               InnerClasses
+  #103 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #104 = Class              #106          // java/lang/invoke/MethodHandles
+  #105 = Utf8               java/lang/invoke/MethodHandles$Lookup
+  #106 = Utf8               java/lang/invoke/MethodHandles
+{
+  public com.lcydream.project.jguid.basics.AddOperationTest();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 6: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/lcydream/project/jguid/basics/AddOperationTest;
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=2, args_size=1
+         0: iconst_0
+         1: istore_1
+         2: iload_1
+         3: ldc           #2                  // int 100000
+         5: if_icmpge     29
+         8: new           #3                  // class java/lang/Thread
+        11: dup
+        12: invokedynamic #4,  0              // InvokeDynamic #0:run:()Ljava/lang/Runnable;
+        17: invokespecial #5                  // Method java/lang/Thread."<init>":(Ljava/lang/Runnable;)V
+        20: invokevirtual #6                  // Method java/lang/Thread.start:()V
+        23: iinc          1, 1
+        26: goto          2
+        29: getstatic     #7                  // Field java/util/concurrent/TimeUnit.SECONDS:Ljava/util/concurrent/TimeUnit;
+        32: ldc2_w        #8                  // long 3l
+        35: invokevirtual #10                 // Method java/util/concurrent/TimeUnit.sleep:(J)V
+        38: goto          46
+        41: astore_1
+        42: aload_1
+        43: invokevirtual #12                 // Method java/lang/InterruptedException.printStackTrace:()V
+        46: getstatic     #13                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        49: getstatic     #14                 // Field sum:I
+        52: invokevirtual #15                 // Method java/io/PrintStream.println:(I)V
+        55: getstatic     #13                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        58: getstatic     #16                 // Field sumLong:J
+        61: invokevirtual #17                 // Method java/io/PrintStream.println:(J)V
+        64: return
+      Exception table:
+         from    to  target type
+            29    38    41   Class java/lang/InterruptedException
+      LineNumberTable:
+        line 12: 0
+        line 13: 8
+        line 21: 20
+        line 12: 23
+        line 24: 29
+        line 27: 38
+        line 25: 41
+        line 26: 42
+        line 28: 46
+        line 29: 55
+        line 30: 64
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            2      27     1     i   I
+           42       4     1     e   Ljava/lang/InterruptedException;
+            0      65     0  args   [Ljava/lang/String;
+      StackMapTable: number_of_entries = 4
+        frame_type = 252 /* append */
+          offset_delta = 2
+          locals = [ int ]
+        frame_type = 250 /* chop */
+          offset_delta = 26
+        frame_type = 75 /* same_locals_1_stack_item */
+          stack = [ class java/lang/InterruptedException ]
+        frame_type = 4 /* same */
+    MethodParameters:
+      Name                           Flags
+      args
+
+  static {};
+    descriptor: ()V
+    flags: (0x0008) ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: iconst_0
+         1: putstatic     #14                 // Field sum:I
+         4: lconst_0
+         5: putstatic     #16                 // Field sumLong:J
+         8: return
+      LineNumberTable:
+        line 8: 0
+        line 9: 4
+}
+SourceFile: "AddOperationTest.java"
+InnerClasses:
+  public static final #101= #100 of #104; // Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles
+BootstrapMethods:
+  0: #51 REF_invokeStatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #52 ()V
+      #53 REF_invokeStatic com/lcydream/project/jguid/basics/AddOperationTest.lambda$main$0:()V
+      #52 ()V

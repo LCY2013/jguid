@@ -1,0 +1,97 @@
+Classfile /Users/a/softwork/java/ideawork/im/gitlab/jguid/target/classes/com/lcydream/project/jguid/cas/SynchronizedDemo.class
+  Last modified 2020年3月25日; size 702 bytes
+  SHA-256 checksum 4ed7cdae82bec0c1bcc87e67055ac2a4472c67d9a8051503d70c92f04e6cede2
+  Compiled from "SynchronizedDemo.java"
+public class com.lcydream.project.jguid.cas.SynchronizedDemo
+  minor version: 0
+  major version: 55
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #3                          // com/lcydream/project/jguid/cas/SynchronizedDemo
+  super_class: #5                         // java/lang/Object
+  interfaces: 0, fields: 1, methods: 3, attributes: 1
+Constant pool:
+   #1 = Methodref          #5.#21         // java/lang/Object."<init>":()V
+   #2 = Fieldref           #3.#22         // com/lcydream/project/jguid/cas/SynchronizedDemo.uniqueInstance:Lcom/lcydream/project/jguid/cas/SynchronizedDemo;
+   #3 = Class              #23            // com/lcydream/project/jguid/cas/SynchronizedDemo
+   #4 = Methodref          #3.#21         // com/lcydream/project/jguid/cas/SynchronizedDemo."<init>":()V
+   #5 = Class              #24            // java/lang/Object
+   #6 = Utf8               uniqueInstance
+   #7 = Utf8               Lcom/lcydream/project/jguid/cas/SynchronizedDemo;
+   #8 = Utf8               <init>
+   #9 = Utf8               ()V
+  #10 = Utf8               Code
+  #11 = Utf8               LineNumberTable
+  #12 = Utf8               LocalVariableTable
+  #13 = Utf8               this
+  #14 = Utf8               getUniqueInstance
+  #15 = Utf8               ()Lcom/lcydream/project/jguid/cas/SynchronizedDemo;
+  #16 = Utf8               StackMapTable
+  #17 = Class              #25            // java/lang/Throwable
+  #18 = Utf8               lookSynchronized
+  #19 = Utf8               SourceFile
+  #20 = Utf8               SynchronizedDemo.java
+  #21 = NameAndType        #8:#9          // "<init>":()V
+  #22 = NameAndType        #6:#7          // uniqueInstance:Lcom/lcydream/project/jguid/cas/SynchronizedDemo;
+  #23 = Utf8               com/lcydream/project/jguid/cas/SynchronizedDemo
+  #24 = Utf8               java/lang/Object
+  #25 = Utf8               java/lang/Throwable
+{
+  public static com.lcydream.project.jguid.cas.SynchronizedDemo getUniqueInstance();
+    descriptor: ()Lcom/lcydream/project/jguid/cas/SynchronizedDemo;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=2, args_size=0
+         0: getstatic     #2                  // Field uniqueInstance:Lcom/lcydream/project/jguid/cas/SynchronizedDemo;
+         3: ifnonnull     37
+         6: ldc           #3                  // class com/lcydream/project/jguid/cas/SynchronizedDemo
+         8: dup
+         9: astore_0
+        10: monitorenter
+        11: getstatic     #2                  // Field uniqueInstance:Lcom/lcydream/project/jguid/cas/SynchronizedDemo;
+        14: ifnonnull     27
+        17: new           #3                  // class com/lcydream/project/jguid/cas/SynchronizedDemo
+        20: dup
+        21: invokespecial #4                  // Method "<init>":()V
+        24: putstatic     #2                  // Field uniqueInstance:Lcom/lcydream/project/jguid/cas/SynchronizedDemo;
+        27: aload_0
+        28: monitorexit
+        29: goto          37
+        32: astore_1
+        33: aload_0
+        34: monitorexit
+        35: aload_1
+        36: athrow
+        37: getstatic     #2                  // Field uniqueInstance:Lcom/lcydream/project/jguid/cas/SynchronizedDemo;
+        40: areturn
+      Exception table:
+         from    to  target type
+            11    29    32   any
+            32    35    32   any
+      LineNumberTable:
+        line 21: 0
+        line 22: 6
+        line 23: 17
+        line 25: 27
+        line 26: 37
+      StackMapTable: number_of_entries = 3
+        frame_type = 252 /* append */
+          offset_delta = 27
+          locals = [ class java/lang/Object ]
+        frame_type = 68 /* same_locals_1_stack_item */
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+
+  public synchronized void lookSynchronized();
+    descriptor: ()V
+    flags: (0x0021) ACC_PUBLIC, ACC_SYNCHRONIZED
+    Code:
+      stack=0, locals=1, args_size=1
+         0: return
+      LineNumberTable:
+        line 31: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       1     0  this   Lcom/lcydream/project/jguid/cas/SynchronizedDemo;
+}
+SourceFile: "SynchronizedDemo.java"
