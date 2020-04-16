@@ -1,0 +1,165 @@
+Classfile /Users/magicLuoMacBook/software/java/ideawork/im/gitlab/jguid/target/classes/com/lcydream/project/jvm/TryFinallyTest.class
+  Last modified 2020-4-15; size 1016 bytes
+  MD5 checksum 10445cda377b132b12455092c3f58dee
+  Compiled from "TryFinallyTest.java"
+public class com.lcydream.project.jvm.TryFinallyTest
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #9.#32         // java/lang/Object."<init>":()V
+   #2 = String             #33            // luo
+   #3 = String             #34            // chun
+   #4 = Fieldref           #35.#36        // java/lang/System.out:Ljava/io/PrintStream;
+   #5 = Methodref          #8.#37         // com/lcydream/project/jvm/TryFinallyTest.try01:()Ljava/lang/String;
+   #6 = Methodref          #38.#39        // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #7 = Methodref          #8.#40         // com/lcydream/project/jvm/TryFinallyTest.try02:()Ljava/lang/String;
+   #8 = Class              #41            // com/lcydream/project/jvm/TryFinallyTest
+   #9 = Class              #42            // java/lang/Object
+  #10 = Utf8               <init>
+  #11 = Utf8               ()V
+  #12 = Utf8               Code
+  #13 = Utf8               LineNumberTable
+  #14 = Utf8               LocalVariableTable
+  #15 = Utf8               this
+  #16 = Utf8               Lcom/lcydream/project/jvm/TryFinallyTest;
+  #17 = Utf8               try01
+  #18 = Utf8               ()Ljava/lang/String;
+  #19 = Utf8               str
+  #20 = Utf8               Ljava/lang/String;
+  #21 = Utf8               StackMapTable
+  #22 = Class              #43            // java/lang/String
+  #23 = Class              #44            // java/lang/Throwable
+  #24 = Utf8               try02
+  #25 = Utf8               main
+  #26 = Utf8               ([Ljava/lang/String;)V
+  #27 = Utf8               args
+  #28 = Utf8               [Ljava/lang/String;
+  #29 = Utf8               MethodParameters
+  #30 = Utf8               SourceFile
+  #31 = Utf8               TryFinallyTest.java
+  #32 = NameAndType        #10:#11        // "<init>":()V
+  #33 = Utf8               luo
+  #34 = Utf8               chun
+  #35 = Class              #45            // java/lang/System
+  #36 = NameAndType        #46:#47        // out:Ljava/io/PrintStream;
+  #37 = NameAndType        #17:#18        // try01:()Ljava/lang/String;
+  #38 = Class              #48            // java/io/PrintStream
+  #39 = NameAndType        #49:#50        // println:(Ljava/lang/String;)V
+  #40 = NameAndType        #24:#18        // try02:()Ljava/lang/String;
+  #41 = Utf8               com/lcydream/project/jvm/TryFinallyTest
+  #42 = Utf8               java/lang/Object
+  #43 = Utf8               java/lang/String
+  #44 = Utf8               java/lang/Throwable
+  #45 = Utf8               java/lang/System
+  #46 = Utf8               out
+  #47 = Utf8               Ljava/io/PrintStream;
+  #48 = Utf8               java/io/PrintStream
+  #49 = Utf8               println
+  #50 = Utf8               (Ljava/lang/String;)V
+{
+  public com.lcydream.project.jvm.TryFinallyTest();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 9: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/lcydream/project/jvm/TryFinallyTest;
+
+  public static java.lang.String try01();
+    descriptor: ()Ljava/lang/String;
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=3, args_size=0
+         0: ldc           #2                  // String luo
+         2: astore_0
+         3: aload_0
+         4: astore_1
+         5: ldc           #3                  // String chun
+         7: astore_0
+         8: aload_1
+         9: areturn
+        10: astore_2
+        11: ldc           #3                  // String chun
+        13: astore_0
+        14: aload_2
+        15: athrow
+      Exception table:
+         from    to  target type
+             3     5    10   any
+      LineNumberTable:
+        line 12: 0
+        line 14: 3
+        line 16: 5
+        line 14: 8
+        line 16: 10
+        line 17: 14
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            3      13     0   str   Ljava/lang/String;
+      StackMapTable: number_of_entries = 1
+        frame_type = 255 /* full_frame */
+          offset_delta = 10
+          locals = [ class java/lang/String ]
+          stack = [ class java/lang/Throwable ]
+
+  public static java.lang.String try02();
+    descriptor: ()Ljava/lang/String;
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=3, args_size=0
+         0: ldc           #2                  // String luo
+         2: astore_0
+         3: aload_0
+         4: astore_1
+         5: ldc           #3                  // String chun
+         7: areturn
+         8: astore_2
+         9: ldc           #3                  // String chun
+        11: areturn
+      Exception table:
+         from    to  target type
+             3     5     8   any
+      LineNumberTable:
+        line 21: 0
+        line 23: 3
+        line 25: 5
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            3       9     0   str   Ljava/lang/String;
+      StackMapTable: number_of_entries = 1
+        frame_type = 255 /* full_frame */
+          offset_delta = 8
+          locals = [ class java/lang/String ]
+          stack = [ class java/lang/Throwable ]
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #4                  // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: invokestatic  #5                  // Method try01:()Ljava/lang/String;
+         6: invokevirtual #6                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         9: getstatic     #4                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        12: invokestatic  #7                  // Method try02:()Ljava/lang/String;
+        15: invokevirtual #6                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        18: return
+      LineNumberTable:
+        line 30: 0
+        line 31: 9
+        line 32: 18
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      19     0  args   [Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      args
+}
+SourceFile: "TryFinallyTest.java"

@@ -1,0 +1,119 @@
+Classfile /Users/magicLuoMacBook/software/java/ideawork/im/gitlab/jguid/target/classes/com/lcydream/project/jvm/SelfAddTest.class
+  Last modified 2020-4-15; size 670 bytes
+  MD5 checksum eafbe9446416bfdf2769624c96a4a4ad
+  Compiled from "SelfAddTest.java"
+public class com.lcydream.project.jvm.SelfAddTest
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #5.#20         // java/lang/Object."<init>":()V
+   #2 = Fieldref           #21.#22        // java/lang/System.out:Ljava/io/PrintStream;
+   #3 = Methodref          #23.#24        // java/io/PrintStream.println:(I)V
+   #4 = Class              #25            // com/lcydream/project/jvm/SelfAddTest
+   #5 = Class              #26            // java/lang/Object
+   #6 = Utf8               <init>
+   #7 = Utf8               ()V
+   #8 = Utf8               Code
+   #9 = Utf8               LineNumberTable
+  #10 = Utf8               LocalVariableTable
+  #11 = Utf8               this
+  #12 = Utf8               Lcom/lcydream/project/jvm/SelfAddTest;
+  #13 = Utf8               add1
+  #14 = Utf8               i
+  #15 = Utf8               I
+  #16 = Utf8               StackMapTable
+  #17 = Utf8               add2
+  #18 = Utf8               SourceFile
+  #19 = Utf8               SelfAddTest.java
+  #20 = NameAndType        #6:#7          // "<init>":()V
+  #21 = Class              #27            // java/lang/System
+  #22 = NameAndType        #28:#29        // out:Ljava/io/PrintStream;
+  #23 = Class              #30            // java/io/PrintStream
+  #24 = NameAndType        #31:#32        // println:(I)V
+  #25 = Utf8               com/lcydream/project/jvm/SelfAddTest
+  #26 = Utf8               java/lang/Object
+  #27 = Utf8               java/lang/System
+  #28 = Utf8               out
+  #29 = Utf8               Ljava/io/PrintStream;
+  #30 = Utf8               java/io/PrintStream
+  #31 = Utf8               println
+  #32 = Utf8               (I)V
+{
+  public com.lcydream.project.jvm.SelfAddTest();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 9: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/lcydream/project/jvm/SelfAddTest;
+
+  public static void add1();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=0
+         0: iconst_0
+         1: istore_0
+         2: iload_0
+         3: bipush        10
+         5: if_icmpge     21
+         8: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        11: iload_0
+        12: invokevirtual #3                  // Method java/io/PrintStream.println:(I)V
+        15: iinc          0, 1
+        18: goto          2
+        21: return
+      LineNumberTable:
+        line 12: 0
+        line 13: 8
+        line 12: 15
+        line 15: 21
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            2      19     0     i   I
+      StackMapTable: number_of_entries = 2
+        frame_type = 252 /* append */
+          offset_delta = 2
+          locals = [ int ]
+        frame_type = 250 /* chop */
+          offset_delta = 18
+
+  public static void add2();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=0
+         0: iconst_0
+         1: istore_0
+         2: iload_0
+         3: bipush        10
+         5: if_icmpge     21
+         8: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        11: iload_0
+        12: invokevirtual #3                  // Method java/io/PrintStream.println:(I)V
+        15: iinc          0, 1
+        18: goto          2
+        21: return
+      LineNumberTable:
+        line 18: 0
+        line 19: 8
+        line 18: 15
+        line 21: 21
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            2      19     0     i   I
+      StackMapTable: number_of_entries = 2
+        frame_type = 252 /* append */
+          offset_delta = 2
+          locals = [ int ]
+        frame_type = 250 /* chop */
+          offset_delta = 18
+}
+SourceFile: "SelfAddTest.java"

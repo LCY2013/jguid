@@ -1,0 +1,222 @@
+Classfile /Users/magicLuoMacBook/software/java/ideawork/im/gitlab/jguid/target/classes/com/lcydream/project/jvm/StringAddTest.class
+  Last modified 2020-4-15; size 1355 bytes
+  MD5 checksum d0af379bf8d386146fe69b2b75b0714e
+  Compiled from "StringAddTest.java"
+public class com.lcydream.project.jvm.StringAddTest
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #14.#43        // java/lang/Object."<init>":()V
+   #2 = Methodref          #44.#45        // java/lang/System.currentTimeMillis:()J
+   #3 = String             #46            //
+   #4 = Class              #47            // java/lang/StringBuilder
+   #5 = Methodref          #4.#43         // java/lang/StringBuilder."<init>":()V
+   #6 = Methodref          #4.#48         // java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   #7 = Methodref          #4.#49         // java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+   #8 = Methodref          #4.#50         // java/lang/StringBuilder.toString:()Ljava/lang/String;
+   #9 = Fieldref           #44.#51        // java/lang/System.out:Ljava/io/PrintStream;
+  #10 = Methodref          #52.#53        // java/io/PrintStream.println:(J)V
+  #11 = Methodref          #13.#54        // com/lcydream/project/jvm/StringAddTest.add1:()V
+  #12 = Methodref          #13.#55        // com/lcydream/project/jvm/StringAddTest.add2:()V
+  #13 = Class              #56            // com/lcydream/project/jvm/StringAddTest
+  #14 = Class              #57            // java/lang/Object
+  #15 = Utf8               <init>
+  #16 = Utf8               ()V
+  #17 = Utf8               Code
+  #18 = Utf8               LineNumberTable
+  #19 = Utf8               LocalVariableTable
+  #20 = Utf8               this
+  #21 = Utf8               Lcom/lcydream/project/jvm/StringAddTest;
+  #22 = Utf8               add1
+  #23 = Utf8               i
+  #24 = Utf8               I
+  #25 = Utf8               startTime
+  #26 = Utf8               J
+  #27 = Utf8               str
+  #28 = Utf8               Ljava/lang/String;
+  #29 = Utf8               endTime
+  #30 = Utf8               StackMapTable
+  #31 = Class              #58            // java/lang/String
+  #32 = Utf8               add2
+  #33 = Utf8               sb
+  #34 = Utf8               Ljava/lang/StringBuilder;
+  #35 = Class              #47            // java/lang/StringBuilder
+  #36 = Utf8               main
+  #37 = Utf8               ([Ljava/lang/String;)V
+  #38 = Utf8               args
+  #39 = Utf8               [Ljava/lang/String;
+  #40 = Utf8               MethodParameters
+  #41 = Utf8               SourceFile
+  #42 = Utf8               StringAddTest.java
+  #43 = NameAndType        #15:#16        // "<init>":()V
+  #44 = Class              #59            // java/lang/System
+  #45 = NameAndType        #60:#61        // currentTimeMillis:()J
+  #46 = Utf8
+  #47 = Utf8               java/lang/StringBuilder
+  #48 = NameAndType        #62:#63        // append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+  #49 = NameAndType        #62:#64        // append:(I)Ljava/lang/StringBuilder;
+  #50 = NameAndType        #65:#66        // toString:()Ljava/lang/String;
+  #51 = NameAndType        #67:#68        // out:Ljava/io/PrintStream;
+  #52 = Class              #69            // java/io/PrintStream
+  #53 = NameAndType        #70:#71        // println:(J)V
+  #54 = NameAndType        #22:#16        // add1:()V
+  #55 = NameAndType        #32:#16        // add2:()V
+  #56 = Utf8               com/lcydream/project/jvm/StringAddTest
+  #57 = Utf8               java/lang/Object
+  #58 = Utf8               java/lang/String
+  #59 = Utf8               java/lang/System
+  #60 = Utf8               currentTimeMillis
+  #61 = Utf8               ()J
+  #62 = Utf8               append
+  #63 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuilder;
+  #64 = Utf8               (I)Ljava/lang/StringBuilder;
+  #65 = Utf8               toString
+  #66 = Utf8               ()Ljava/lang/String;
+  #67 = Utf8               out
+  #68 = Utf8               Ljava/io/PrintStream;
+  #69 = Utf8               java/io/PrintStream
+  #70 = Utf8               println
+  #71 = Utf8               (J)V
+{
+  public com.lcydream.project.jvm.StringAddTest();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 9: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/lcydream/project/jvm/StringAddTest;
+
+  public static void add1();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=5, locals=5, args_size=0
+         0: invokestatic  #2                  // Method java/lang/System.currentTimeMillis:()J
+         3: lstore_0
+         4: ldc           #3                  // String
+         6: astore_2
+         7: iconst_0
+         8: istore_3
+         9: iload_3
+        10: sipush        1000
+        13: if_icmpge     41
+        16: new           #4                  // class java/lang/StringBuilder
+        19: dup
+        20: invokespecial #5                  // Method java/lang/StringBuilder."<init>":()V
+        23: aload_2
+        24: invokevirtual #6                  // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        27: iload_3
+        28: invokevirtual #7                  // Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+        31: invokevirtual #8                  // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        34: astore_2
+        35: iinc          3, 1
+        38: goto          9
+        41: invokestatic  #2                  // Method java/lang/System.currentTimeMillis:()J
+        44: lstore_3
+        45: getstatic     #9                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        48: lload_3
+        49: lload_0
+        50: lsub
+        51: invokevirtual #10                 // Method java/io/PrintStream.println:(J)V
+        54: return
+      LineNumberTable:
+        line 12: 0
+        line 13: 4
+        line 14: 7
+        line 15: 16
+        line 14: 35
+        line 17: 41
+        line 18: 45
+        line 19: 54
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            9      32     3     i   I
+            4      51     0 startTime   J
+            7      48     2   str   Ljava/lang/String;
+           45      10     3 endTime   J
+      StackMapTable: number_of_entries = 2
+        frame_type = 254 /* append */
+          offset_delta = 9
+          locals = [ long, class java/lang/String, int ]
+        frame_type = 250 /* chop */
+          offset_delta = 31
+
+  public static void add2();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=5, locals=5, args_size=0
+         0: invokestatic  #2                  // Method java/lang/System.currentTimeMillis:()J
+         3: lstore_0
+         4: new           #4                  // class java/lang/StringBuilder
+         7: dup
+         8: invokespecial #5                  // Method java/lang/StringBuilder."<init>":()V
+        11: astore_2
+        12: iconst_0
+        13: istore_3
+        14: iload_3
+        15: sipush        1000
+        18: if_icmpge     33
+        21: aload_2
+        22: iload_3
+        23: invokevirtual #7                  // Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+        26: pop
+        27: iinc          3, 1
+        30: goto          14
+        33: invokestatic  #2                  // Method java/lang/System.currentTimeMillis:()J
+        36: lstore_3
+        37: getstatic     #9                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        40: lload_3
+        41: lload_0
+        42: lsub
+        43: invokevirtual #10                 // Method java/io/PrintStream.println:(J)V
+        46: return
+      LineNumberTable:
+        line 22: 0
+        line 23: 4
+        line 24: 12
+        line 25: 21
+        line 24: 27
+        line 27: 33
+        line 28: 37
+        line 29: 46
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           14      19     3     i   I
+            4      43     0 startTime   J
+           12      35     2    sb   Ljava/lang/StringBuilder;
+           37      10     3 endTime   J
+      StackMapTable: number_of_entries = 2
+        frame_type = 254 /* append */
+          offset_delta = 14
+          locals = [ long, class java/lang/StringBuilder, int ]
+        frame_type = 250 /* chop */
+          offset_delta = 18
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=0, locals=1, args_size=1
+         0: invokestatic  #11                 // Method add1:()V
+         3: invokestatic  #12                 // Method add2:()V
+         6: return
+      LineNumberTable:
+        line 32: 0
+        line 33: 3
+        line 34: 6
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       7     0  args   [Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      args
+}
+SourceFile: "StringAddTest.java"
