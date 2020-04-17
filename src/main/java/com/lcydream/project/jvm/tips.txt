@@ -65,7 +65,9 @@ jmap -dump:format=b,file=serviceDump.dat 6214
 
 
 =======>如何打印GC日志？(JDK8)<==========
--XX:+PrintGCDetails
+XX:+PrintGCDetails
+-XX:+PrintGCTimeStamps
+-XX:+PrintGCDateStamps
 -Xloggc:garbage-collection.log
 
 =======>开启Jvisual远程连接<=========
@@ -99,4 +101,95 @@ java -Dcom.sun.management.jmxremote.port=9527 -Dcom.sun.management.jmxremote.ssl
 
 =======>top<=========
 top -H
+
+
+========>JVM常见参数<===========
+无论是设置内存大小还是选用不同的GC Collector都可以通过JVM参数的形式，所以我们有必要了解一下JVM参数相关的内容。
+    标准参数
+        -help
+        -server
+        -client
+        -version
+        -showversion
+        -cp
+        -classpath
+    X参数
+        非标准参数，也就是在jvm各个版本中可能会变
+         -Xint
+         -Xcomp
+         -Xmixed
+    XX参数
+        解释执行 第一次使用就编译成本地代码
+        混合模式，JVM自己来决定是否编译成本地代码
+        平时用的最多的参数类型 非标准化参数，相对不稳定，主要用于JVM调优和Debug
+        a.Boolean类型
+         格式:-XX:[+-]<name> 表示启用或者禁用name属性
+         比如:
+             -XX:+UseConcMarkSweepGC 表示启用CMS类型的垃圾回收器
+             -XX:+UseG1GC 表示启用CMS类型的垃圾回收器
+        b.非Boolean类型 格式:-XX<name>=<value>表示name属性的值是value
+         比如:
+            -XX:MaxGCPauseMillis=500
+        特殊参数
+         -Xmx -Xms 设置最大最小内存的 不是X参数，而是XX参数
+         -Xms等价于-XX:InitialHeapSize
+         -Xmx等价于-XX:MaxHeapSize
+         -Xss等价于-XX:ThreadStackSize
+    查看JVM运行时参数
+        得先知道当前的值是什么，然后才能设置调优
+        =表示默认值
+        :=表示被用户或JVM修改后的值
+        查看PID:
+            jps -l，专门用来查看java进程的
+        jinfo 查看已经运行的jvm里面的参数值
+        jinfo -flag MaxHeapSize PID 查看最大内存
+        jinfo -flag UseG1GC PID 查看垃圾回收器
+        jinfo -flags PID 查看曾经赋过值的一些参数
+    jstat查看JVM统计信息
+        (1)类装载
+            jstat -class PID 1000 10   PID进程ID，1000每个一秒钟，10输出10次
+        (2)垃圾收集
+            jstat -gc PID 1000 10
+
+    内存溢出和优化
+        内存不够用主要分为两个方面:
+            堆和非堆 所以这时候就要去手动设置堆或者非堆的大小，然后程序中不停使用相对应的区域，等待内存溢出。
+            关键是内存溢出之后，怎么得到溢出信息进行分析，有两种做法 参数设置自动
+        -XX:+HeapDumpOnOutOfMemoryError
+        -XX:HeapDumpPath=./
+        jmap手动
+        查看当前进程id PID
+        jmap -dump:format=b,file=heap.hprof PID
+        jmap -heap PID 打印出堆内存相关的信息
+        当内存信息打印出来之后，发现看不懂，怎么办呢?得要有工具帮助我们看这块的信息，比如MAT
+        小结:这块可以适当增加内存的大小，这样防止内存溢出，减少垃圾回收的频率
+    GC调优
+        (1)查看目前JVM使用的垃圾回收器
+            [root@pretty ~]# jinfo -flag UseParallelGC 6925
+            -XX:+UseParallelGC --->发现使用了ParallelGC
+            [root@pretty ~]# jinfo -flag UseG1GC 6925
+            -XX:-UseG1GC --->发现没有使用G1GC
+        (2)将垃圾回收器修改为G1 -XX:+UseG1GC
+            [root@pretty ~]# jinfo -flag UseG1GC 7158 -XX:+UseG1GC
+        (3)打印出日志详情信息和日志输出目录文件
+             PrintGCDetails:打印日志详情信息 PrintGCTimeStamps:输出GC的时间戳(以基准时间的形式)
+             -XX:+PrintGCDetails
+             -XX:+PrintGCTimeStamps
+             -XX:+PrintGCDateStamps
+             -Xloggc:$CATALINA_HOME/logs/g1gc.log
+        (4)将日志用工具来分析，看相应的参数
+    JVM调优小结
+        内存大小设置——>dump出日志
+        使用MAT工具分析
+        垃圾收集器选择———>dump出GC日志 gceasy或者GCViewer
+
+
+
+
+
+
+
+
+
+
 
