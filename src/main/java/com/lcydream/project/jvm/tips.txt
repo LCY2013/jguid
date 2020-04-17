@@ -165,9 +165,9 @@ top -H
         小结:这块可以适当增加内存的大小，这样防止内存溢出，减少垃圾回收的频率
     GC调优
         (1)查看目前JVM使用的垃圾回收器
-            [root@pretty ~]# jinfo -flag UseParallelGC 6925
+            jinfo -flag UseParallelGC 6925
             -XX:+UseParallelGC --->发现使用了ParallelGC
-            [root@pretty ~]# jinfo -flag UseG1GC 6925
+            jinfo -flag UseG1GC 6925
             -XX:-UseG1GC --->发现没有使用G1GC
         (2)将垃圾回收器修改为G1 -XX:+UseG1GC
             [root@pretty ~]# jinfo -flag UseG1GC 7158 -XX:+UseG1GC
