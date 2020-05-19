@@ -1,5 +1,7 @@
 package com.lcydream.project.jguid.cas;
 
+import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLongFieldUpdater;
@@ -13,7 +15,12 @@ public class LockCas {
 
     private static int total;
 
-    //jdk1.9之后
+    public static void main(String[] args) {
+        Random random = new Random();
+        random.ints(20,100).limit(10).forEach(System.out::println);
+    }
+
+    //jdk
     private static final AtomicLongFieldUpdater<LockCas> lockFieldUpdater =
             AtomicLongFieldUpdater.newUpdater(LockCas.class,"lock");
 
@@ -34,7 +41,7 @@ public class LockCas {
         lockFieldUpdater.compareAndSet(this,t,0);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         CountDownLatch countDownLatch = new CountDownLatch(10);
         LockCas lockCas = new LockCas();
         new Thread(()->lockCas.print(10000,countDownLatch)).start();
@@ -53,7 +60,7 @@ public class LockCas {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private void print(int i,CountDownLatch countDownLatch){
         acquireLock();
