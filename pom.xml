@@ -93,7 +93,9 @@
 			<version>1.1.1</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/io.vavr/vavr -->
+		<!-- https://mvnrepository.com/artifact/io.vavr/vavr
+		 	 函数式编程包
+		 -->
 		<dependency>
 			<groupId>io.vavr</groupId>
 			<artifactId>vavr</artifactId>
