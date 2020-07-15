@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>object-introduce</module>
+        <module>generic-introduce</module>
     </modules>
     <artifactId>stage01</artifactId>
 
