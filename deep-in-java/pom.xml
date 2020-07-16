@@ -23,5 +23,6 @@
     </build>
     <modules>
         <module>stage01</module>
+        <module>stage02</module>
     </modules>
 </project>
