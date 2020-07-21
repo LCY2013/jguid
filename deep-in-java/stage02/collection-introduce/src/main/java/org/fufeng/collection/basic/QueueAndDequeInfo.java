@@ -15,53 +15,26 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.fufeng.collection;
+package org.fufeng.collection.basic;
 
-import java.util.Map;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * @program: jguid
- * @description: {@link Map} map实现
+ * @description: {@link Queue} 和 {@link Deque} 队列
  * @author: <a href="https://github.com/lcy2013">MagicLuo</a>
  * @create: 2020-07-20
  */
-public class MapInfo {
+public class QueueAndDequeInfo {
 
     public static void main(String[] args) {
-        Map<Integer,String> map = Map.of(1,"fufeng");
-        System.out.println(map.get(1));
-        System.out.println(map.get(1L));
-        System.out.println(map.get(1.0));
-        System.out.println(map.get(new Key(1)));
-        System.out.println(map.containsKey(new Key(1)));
+        List<String> list = new LinkedList<>();
+        Queue<String> queue = new LinkedList<>();
+        Deque<String> deque = new LinkedList<>();
+
     }
 
-    private static class Key{
-        private final int value;
-
-        public Key(int value) {
-            this.value = value;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if(obj == this){
-                return true;
-            }
-            if(obj instanceof Integer){
-                // jdk1.5以后会有自动拆箱装箱的操作
-                return this.value == (Integer) obj;
-            }
-            if(obj instanceof Key){
-                Key key = (Key) obj;
-                return this.value == key.value;
-            }
-            return false;
-        }
-
-        @Override
-        public int hashCode() {
-            return value;
-        }
-    }
 }
