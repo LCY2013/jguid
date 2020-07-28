@@ -1,12 +1,10 @@
 package com.lcydream.project.jguid.dynamic.proxy.custom;
 
+import com.lcydream.project.jguid.dynamic.proxy.custom.business.CustomInterface;
 import com.lcydream.project.jguid.dynamic.proxy.custom.business.CustomLoggerFmt;
 import com.lcydream.project.jguid.dynamic.proxy.custom.proxy.CustomClassloader;
-import com.lcydream.project.jguid.dynamic.proxy.custom.proxy.CustomInvokeHandler;
 import com.lcydream.project.jguid.dynamic.proxy.custom.proxy.CustomProxy;
-import com.lcydream.project.jguid.dynamic.proxy.custom.business.CustomInterface;
 
-import java.lang.reflect.Method;
 import java.util.Date;
 
 /**

@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>concurrency-introduce</module>
+        <module>memory-introduce</module>
     </modules>
     <artifactId>stage04</artifactId>
 
