@@ -11,6 +11,14 @@
 
     <artifactId>reflection-introduce</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>net.jodah</groupId>
+            <artifactId>typetools</artifactId>
+            <version>0.6.2</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
