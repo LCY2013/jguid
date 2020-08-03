@@ -48,9 +48,9 @@ public class JavaGenericInfo {
         Class<?> scanBaseClass = JavaGenericInfo.class;
         // 获取扫描路径
         // < jdk 9
-        //String scanBasePackages = scanBaseClass.getPackage().getName();
+        String scanBasePackages = scanBaseClass.getPackage().getName();
         // ≥ jdk 9
-        String scanBasePackages = scanBaseClass.getPackageName();
+        //String scanBasePackages = scanBaseClass.getPackageName();
 
         // 类所在的class path 物理路径
         String classPath = getClassPath(scanBaseClass);
