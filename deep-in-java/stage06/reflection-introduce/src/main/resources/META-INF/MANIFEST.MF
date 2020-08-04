@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Implementation-Vendor: reflection-introduce
+Implementation-Title: reflection-introduce
+Implementation-Version: 1.0.0
+Specification-Vendor: reflection-introduce
