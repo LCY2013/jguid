@@ -15,48 +15,54 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.fufeng.newfilesystem;
+package org.fufeng.nio;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.ByteBuffer;
-import java.nio.channels.SeekableByteChannel;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-
-import static org.fufeng.newfilesystem.PathInfo.USER_DIR;
+import java.nio.channels.Channel;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
 
 /**
  * @program: jguid
- * @description: 通过ByteBuffer操作文件
+ * @description: {@link Channel}
  * @author: <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @create: 2020-08-05
- * @see ByteBuffer
  */
-public class FileOperationWithByteChannel {
+public class ChannelRedirect {
 
     public static void main(String[] args) throws IOException {
-        // 设置UTF-8字符集编码
-        final Charset charsetUtf8 = StandardCharsets.UTF_8;
-        final Path pomXmlPath = Paths.get(USER_DIR,"pom.xml");
-        final Path pomXmlCopyPath = Paths.get(USER_DIR, "pom-copy.xml");
-        try (final SeekableByteChannel sourceSeekableByteChannel =
-                     Files.newByteChannel(pomXmlPath);
-             final SeekableByteChannel seekableCopyByteChannel =
-                     Files.newByteChannel(pomXmlCopyPath,
-                             StandardOpenOption.CREATE_NEW,StandardOpenOption.WRITE)){
-            final ByteBuffer byteBuffer = ByteBuffer.allocate(16);
-            while (sourceSeekableByteChannel.read(byteBuffer) > 0){
-                //System.out.println(charsetUtf8.decode(byteBuffer));
-                //byteBuffer.rewind();
-                byteBuffer.flip();
-                seekableCopyByteChannel.write(byteBuffer);
-                byteBuffer.clear();
+        // System.in 和 System.out
+        // InputStream 和 OutputStream
+        // copy(System.in,System.out);
+        final ReadableByteChannel readableByteChannel = Channels.newChannel(System.in);
+        final WritableByteChannel writableByteChannel = Channels.newChannel(System.out);
+        copy(readableByteChannel,writableByteChannel);
+    }
+
+    private static void copy(ReadableByteChannel readableByteChannel, WritableByteChannel writableByteChannel) throws IOException {
+        // 申请4k大小的堆内存
+        final ByteBuffer byteBuffer = ByteBuffer.allocate(4 * 1024);
+        while (readableByteChannel.read(byteBuffer) != -1){
+            // 从 写模式 -> 读模式
+            byteBuffer.flip();
+            // 判断是否可读
+            if (byteBuffer.hasRemaining()){
+                writableByteChannel.write(byteBuffer);
             }
+            byteBuffer.clear();
         }
     }
 
+    private static void copy(InputStream inputStream, OutputStream outputStream) throws IOException {
+        // 定义一个4k的堆内存信息
+        byte[] buffer = new byte[4*1024];
+        int readLength = -1;
+        while ((readLength = inputStream.read(buffer)) != -1){
+            outputStream.write(buffer,0,readLength);
+        }
+    }
 }
