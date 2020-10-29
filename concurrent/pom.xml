@@ -1,42 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jguid</artifactId>
+        <groupId>com.lcydream.project</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-    <!--<parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.0.RELEASE</version>
-        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;
-    </parent>-->
-    <groupId>com.lcydream.project</groupId>
-    <artifactId>jguid</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>jguid</name>
-    <description>java guid action</description>
 
-    <modules>
-        <module>deep-in-java</module>
-        <module>common</module>
-        <module>concurrent</module>
-    </modules>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <!-- Import dependency management from Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.3.4.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <artifactId>concurrent</artifactId>
 
     <build>
         <plugins>
@@ -62,6 +35,8 @@
                 <version>3.8.1</version>
                 <configuration>
                     <parameters>true</parameters>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <!-- Tomcat 8 Maven 插件用于构建可执行 war -->
@@ -90,5 +65,4 @@
             </plugin>-->
         </plugins>
     </build>
-
 </project>
