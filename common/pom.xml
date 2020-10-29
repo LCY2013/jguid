@@ -44,7 +44,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <!-- <scope>test</scope>-->
             <exclusions>
                 <exclusion>
                     <groupId>org.junit.vintage</groupId>
@@ -99,4 +99,59 @@
             <version>0.10.2</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.4.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <parameters>true</parameters>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <!-- Tomcat 8 Maven 插件用于构建可执行 war -->
+            <!-- https://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat8-maven-plugin -->
+            <!--<plugin>
+                &lt;!&ndash;<groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat8-maven-plugin</artifactId>
+                <version>3.0-r1655215</version>&ndash;&gt;
+                <groupId>ds2.tools.maven.plugins</groupId>
+                <artifactId>embedded-tomcat8-maven-plugin</artifactId>
+                <version>0.1.2</version>
+                <executions>
+                    <execution>
+                        <id>tomcat-run</id>
+                        <goals>
+                            &lt;!&ndash; 最终打包成可执行的jar包 &ndash;&gt;
+                            &lt;!&ndash;<goal>exec-war-only</goal>&ndash;&gt;
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            &lt;!&ndash; ServletContext 路径 &ndash;&gt;
+                            <path>/</path>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+        </plugins>
+    </build>
 </project>
