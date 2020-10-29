@@ -64,8 +64,10 @@ public class Account {
             synchronized (this) {
                 // 锁定转入账户
                 synchronized (target) {
-                    this.balance = this.balance.subtract(amt);
-                    target.balance = target.balance.add(amt);
+                    if (this.balance.compareTo(amt) >= 0) {
+                        this.balance = this.balance.subtract(amt);
+                        target.balance = target.balance.add(amt);
+                    }
                 }
             }
         } finally {

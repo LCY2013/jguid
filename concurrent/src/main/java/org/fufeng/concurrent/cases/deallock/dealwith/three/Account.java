@@ -69,8 +69,10 @@ public class Account implements Comparable{
         synchronized (min) {
             // 再锁定大账户
             synchronized (max) {
-                this.balance = this.balance.subtract(amt);
-                target.balance = target.balance.add(amt);
+                if (this.balance.compareTo(amt) >= 0) {
+                    this.balance = this.balance.subtract(amt);
+                    target.balance = target.balance.add(amt);
+                }
             }
         }
         return true;
