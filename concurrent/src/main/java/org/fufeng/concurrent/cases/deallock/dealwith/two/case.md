@@ -1,0 +1,1 @@
+Java语言本身的元语synchronized不能够满足这点，因为加锁释放都是由JVM层控制实现，不过JUC提供了实现思路(Lock)。
