@@ -1,7 +1,6 @@
 package com.lcydream.project.jguid.cas;
 
 import java.util.Random;
-import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLongFieldUpdater;
