@@ -1,6 +1,5 @@
 package org.fufeng.project.concurrent.fatory;
 
-import java.util.UUID;
 import java.util.concurrent.ThreadFactory;
 
 /**
