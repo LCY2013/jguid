@@ -19,6 +19,7 @@
         <module>deep-in-java</module>
         <module>common</module>
         <module>concurrent</module>
+        <module>jvm</module>
     </modules>
 
     <properties>

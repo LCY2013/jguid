@@ -1,0 +1,20 @@
+用户线程与守护线程？
+具体区别见java.c#JavaMain 守护线程随着主线程消亡而消亡，主线程会等待用户线程执行完毕再消亡
+
+
+#define LEAVE() \
+    do { \
+        if ((*vm)->DetachCurrentThread(vm) != JNI_OK) { \
+            JLI_ReportErrorMessage(JVM_ERROR2); \
+            ret = 1; \
+        } \
+        if (JNI_TRUE) { \
+            (*vm)->DestroyJavaVM(vm); \
+            return ret; \
+        } \
+    } while (JNI_FALSE)
+
+
+线程默认是用户现场，也就是非守护线程
+
+设置守护线程的方式:java.lang.Thread#setDaemon(true)
