@@ -38,6 +38,9 @@ public class ThreadInterrupt {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    // 在线程发生中断异常的时候，JVM会重置标志位(false)，所以该线程就可能死循环
+                    // 需要进行标志位的重置
+                    Thread.currentThread().interrupt();
                 }
             }
         });
