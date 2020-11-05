@@ -41,8 +41,8 @@ public class Miscellaneous {
     }
 
     private static void autoDecoder() {
-        Path decoderPath = Paths.get("D:\\SoftWareTools\\idea201901\\boot\\thinking-in-java8\\src\\main\\java\\com\\lcydream\\open\\module05\\encodered.txt")
-                ,decoderedPath = Paths.get("D:\\SoftWareTools\\idea201901\\boot\\thinking-in-java8\\src\\main\\java\\com\\lcydream\\open\\module05\\decodered.txt");
+        Path decoderPath = Paths.get(System.getProperty("user.dir")+"/jvm/src/main/java/org/fufeng/project/lamda/module05/encodered.txt")
+                ,decoderedPath = Paths.get(System.getProperty("user.dir")+"/jvm/src/main/java/org/fufeng/project/lamda/module05/decodered.txt");
         final Base64.Decoder mimeDecoder = Base64.getMimeDecoder();
         try (final InputStream inputStream = Files.newInputStream(decoderPath)){
             Files.copy(mimeDecoder.wrap(inputStream),decoderedPath);
@@ -52,8 +52,8 @@ public class Miscellaneous {
     }
 
     private static void autoEncoder() {
-        Path originalPath = Paths.get("D:\\SoftWareTools\\idea201901\\boot\\thinking-in-java8\\src\\main\\java\\com\\lcydream\\open\\module05\\original.txt")
-                ,encoderPath = Paths.get("D:\\SoftWareTools\\idea201901\\boot\\thinking-in-java8\\src\\main\\java\\com\\lcydream\\open\\module05\\encodered.txt");
+        Path originalPath = Paths.get(System.getProperty("user.dir")+"/jvm/src/main/java/org/fufeng/project/lamda/module05/original.txt")
+                ,encoderPath = Paths.get(System.getProperty("user.dir")+"/jvm/src/main/java/org/fufeng/project/lamda/module05/encodered.txt");
         final Base64.Encoder mimeEncoder = Base64.getMimeEncoder();
         try(final OutputStream outputStream = Files.newOutputStream(encoderPath)){
             Files.copy(originalPath,mimeEncoder.wrap(outputStream));
@@ -79,7 +79,7 @@ public class Miscellaneous {
 
     private static void streamOnClose() {
         try (final Stream<String> stringStream = Files.lines(
-                Paths.get("D:\\SoftWareTools\\idea201901\\boot\\thinking-in-java8\\src\\main\\java\\com\\lcydream\\open\\module01\\FirstLamdba.java"))
+                Paths.get(System.getProperty("user.dir")+"/jvm/src/main/java/org/fufeng/project/lamda/module01/FirstLamdba.java"))
                 .onClose(()->out.println("closing"))
                 .filter(s -> s.contains("java"))){
             stringStream.forEach(out::println);

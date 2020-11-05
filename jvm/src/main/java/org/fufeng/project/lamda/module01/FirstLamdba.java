@@ -81,11 +81,11 @@ public class FirstLamdba {
         out.println("--------------------------");
         //演示六
         //演示File类里面的listFile
-        File file = new File("D:\\SoftWareTools\\idea201901\\boot\\thinking-in-java8");
+        File file = new File(System.getProperty("user.dir")+"/jvm/src/main");
         //一
-        File[] filesLamdba = file.listFiles(fileName->fileName.isDirectory());
-        if(filesLamdba != null) {
-            Arrays.stream(filesLamdba).forEach(fileEach -> out.println(fileEach.getName()));
+        File[] filesLambda = file.listFiles(File::isDirectory);
+        if(filesLambda != null) {
+            Arrays.stream(filesLambda).forEach(fileEach -> out.println(fileEach.getName()));
         }
         //二
         File[] files = file.listFiles(File::isDirectory);
@@ -96,13 +96,13 @@ public class FirstLamdba {
         //三 对一个File目录集合进行目录排序，然后再对目录中的元素信息按路径名称排序
         if(files != null) {
             Arrays.stream(files) //创建一个文件流
-                    .map(fileSort -> fileSort.getAbsolutePath()) //计算出新的文件路径
+                    .map(File::getAbsolutePath) //计算出新的文件路径
                     .sorted() //排序处理
                     .map(filePath -> {
                         ArrayList<String> list = new ArrayList<>();
                         File filePathFile = new File(filePath);
                         if(filePathFile.listFiles() != null) {
-                            for (File filepf : filePathFile.listFiles()) {
+                            for (File filepf : Objects.requireNonNull(filePathFile.listFiles())) {
                                 list.add(filepf.getAbsolutePath());
                             }
                         }

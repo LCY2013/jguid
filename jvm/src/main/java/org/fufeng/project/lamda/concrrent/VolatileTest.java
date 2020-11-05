@@ -1,6 +1,7 @@
 package org.fufeng.project.lamda.concrrent;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -14,11 +15,12 @@ public class VolatileTest {
 
     private static volatile int volatileInt = 0;
     private static volatile Integer volatileInteger = 0;
-    private static CountDownLatch countDownLatch = new CountDownLatch(1000);
+    private static CountDownLatch countDownLatch = new CountDownLatch(10000);
+    //private static CyclicBarrier cyclicBarrier = new CyclicBarrier(1000);
 
     public static void main(String[] args) throws InterruptedException {
-        final ExecutorService executorService = Executors.newFixedThreadPool(10000);
-        for (int i=0;i<1000;i++) {
+        final ExecutorService executorService = Executors.newFixedThreadPool(1000);
+        for (int i=0;i<10000;i++) {
             executorService.submit(()->{
                 volatileInt++;
                 volatileInteger++;

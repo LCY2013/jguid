@@ -2,10 +2,7 @@ package org.fufeng.project.lamda.module02;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -14,7 +11,6 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static java.lang.System.in;
 import static java.lang.System.out;
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.toSet;
@@ -33,7 +29,7 @@ public class CreateStream {
 
         //002
         out.println("-----------------------------");
-        List<String> lists = new ArrayList<String>();
+        List<String> lists = new ArrayList<>();
         lists.add("11");
         lists.add("22");
         lists.add("33");
@@ -98,7 +94,7 @@ public class CreateStream {
         long a = 25214903917L;
         long c = 11;
         long m = (long)Math.pow(2,48);
-        genneratorNum(a,c,m,3,10)
+        generatorNum(a,c,m,3,10)
         .forEach(val -> out.print(val + " "));
     }
 
@@ -108,7 +104,7 @@ public class CreateStream {
      * @param limit 取多少个
      * @return Stream流
      */
-    private static Stream<Long> genneratorNum(long a, long c, long m,long seed,long limit){
+    private static Stream<Long> generatorNum(long a, long c, long m, long seed, long limit){
         return Stream.iterate(seed,p -> (a*p+c)%m).limit(limit);
     }
 
