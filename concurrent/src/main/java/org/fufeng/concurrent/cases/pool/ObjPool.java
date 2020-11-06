@@ -17,7 +17,6 @@
  */
 package org.fufeng.concurrent.cases.pool;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
@@ -27,7 +26,7 @@ import java.util.function.Function;
 /**
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
- * @description 对象池
+ * @description 利用信号量限制对象池对象的使用
  * @create 2020-11-05
  */
 public class ObjPool<T, R> {
@@ -91,7 +90,7 @@ public class ObjPool<T, R> {
 
     public static void main(String[] args) {
         // 创建测试用例
-        final ObjPool<Long, String> objPool = new ObjPool<Long, String>(5, 1L, 2L, 3L, 4L, 5L);
+        final ObjPool<Long, String> objPool = new ObjPool<>(5, 1L, 2L, 3L, 4L, 5L);
 
         //objPool.exec(ObjPool::longToString);
 
