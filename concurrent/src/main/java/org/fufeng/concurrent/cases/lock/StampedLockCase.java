@@ -37,6 +37,8 @@ import java.util.concurrent.locks.StampedLock;
  * 如果线程阻塞在 StampedLock 的 readLock() 或者writeLock() 上时，此时调用该阻塞线程的 interrupt() 方法，会导致 CPU 飙升。
  * <p>
  * 使用 StampedLock 一定不要调用中断操作，如果需要支持中断功能，一定使用可中断的悲观读锁 readLockInterruptibly() 和写锁 writeLockInterruptibly()。
+ * <p>
+ * StampedLock 支持锁的降级（通过 tryConvertToReadLock() 方法实现）和升级（通过tryConvertToWriteLock() 方法实现）。
  * @create 2020-11-06
  * @see StampedLock
  */
@@ -102,6 +104,37 @@ public class StampedLockCase {
         thread2.interrupt();
         // 等待thread2
         thread2.join();
+    }
+
+    /**
+     * 最佳读示例
+     */
+    private void bestRead() {
+        final StampedLock stampedLock = new StampedLock();
+        final long optimisticRead = stampedLock.tryOptimisticRead();
+        if (stampedLock.validate(optimisticRead)) {
+            final long readLock = stampedLock.readLock();
+            try {
+                // 业务实现
+                System.out.println("data changed ...");
+            } finally {
+                stampedLock.unlockRead(readLock);
+            }
+        }
+    }
+
+    /**
+     * 最佳写示例
+     */
+    private void bestWrite() {
+        final StampedLock stampedLock = new StampedLock();
+        final long writeLock = stampedLock.writeLock();
+        try {
+            // 业务实现
+            System.out.println("processed ...");
+        } finally {
+            stampedLock.unlockWrite(writeLock);
+        }
     }
 
     public static void main(String[] args) throws InterruptedException {
