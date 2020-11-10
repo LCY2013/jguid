@@ -25,6 +25,7 @@ import java.util.concurrent.FutureTask;
  * @program jguid
  * @description 利用FutureTask 进行任务协作
  * @create 2020-11-10
+ * @see FutureTask
  */
 public class ThreadPoolV5 {
 
