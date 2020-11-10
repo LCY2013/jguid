@@ -142,7 +142,7 @@ public class ThreadPoolV7 {
     public static void case05() {
         final CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(() -> new Random().nextInt(10))
                 .thenApply(num -> num++)
-                .handle((num, e) -> {  // 类似与try{}finally{} 不支持返回值 finally
+                .handle((num, e) -> {  // 类似与try{}finally{} 支持返回值 finally
                     if (e == null) {
                         System.out.println(num);
                     }
