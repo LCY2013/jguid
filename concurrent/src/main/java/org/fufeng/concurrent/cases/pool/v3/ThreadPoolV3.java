@@ -15,38 +15,28 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.fufeng.concurrent.cases.pool;
+package org.fufeng.concurrent.cases.pool.v3;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
- * @description 创建线程工厂
+ * @description 线程池使用第三版
  * @create 2020-11-10
  */
-public class ThreadFactoryV2{
+public class ThreadPoolV3 {
 
-    /**
-     *  线程编号
-     */
-    private final AtomicInteger threadInx = new AtomicInteger(0);
-
-    /**
-     *  执行的工作任务
-     */
-    private final BlockingQueue<Runnable> workRunnable;
-
-    public ThreadFactoryV2(BlockingQueue<Runnable> workRunnable) {
-        this.workRunnable = workRunnable;
-    }
-
-    public Thread newThread() {
-        final WorkThread thread = new WorkThread(this.workRunnable);
-        thread.setName(String.format("%s-%s","v2-thread-pool",threadInx.getAndIncrement()));
-        return thread;
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        final ExecutorService executorService = Executors.newSingleThreadExecutor();
+        final Result result = new Result();
+        final Future<Result> future = executorService.submit(new Task(result), result);
+        final Result futureResult = future.get();
+        System.out.println(futureResult==result);
+        System.out.println(futureResult);
     }
 
 }

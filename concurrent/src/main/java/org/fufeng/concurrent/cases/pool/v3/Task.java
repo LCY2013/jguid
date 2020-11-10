@@ -15,55 +15,27 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.fufeng.concurrent.cases.pool;
-
-import java.util.ArrayList;
-import java.util.List;
+package org.fufeng.concurrent.cases.pool.v3;
 
 /**
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
- * @description 线程池 第一版
- * 常规使用线程的池化处理
+ * @description 任务
  * @create 2020-11-10
  */
-public class ThreadPoolV1 {
+public class Task implements Runnable {
 
-    /**
-     * 自定义线程池
-     */
-    private final List<Thread> threadPool = new ArrayList<>();
+    private final Result result;
 
-    /**
-     * 从线程池中获取一个线程
-     *
-     * @param runnable 执行的具体逻辑
-     * @return 线程
-     */
-    public Thread acquire(Runnable runnable) {
-        //return new Thread(runnable);
-        if (threadPool.size() == 0) {
-            Thread thread = new Thread(runnable);
-            threadPool.add(thread);
-        }
-        return threadPool.get(0);
+    public Task(Result result) {
+        this.result = result;
     }
 
-    /**
-     * 释放已经使用过的线程信息
-     *
-     * @param thread 线程
-     */
-    public void release(Thread thread) {
-        threadPool.add(thread);
-    }
-
-    public static void main(String[] args) {
-        ThreadPoolV1 threadPoolV1 = new ThreadPoolV1();
-        final Thread thread = threadPoolV1.acquire(() -> {
-            System.out.println("hello , fufeng!");
-        });
-        threadPoolV1.release(thread);
+    @Override
+    public void run() {
+        System.out.println(result);
+        result.setCode(200);
+        result.setData("hello,fufeng!");
     }
 
 }

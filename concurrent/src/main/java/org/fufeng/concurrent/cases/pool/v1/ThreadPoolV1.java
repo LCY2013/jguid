@@ -15,45 +15,55 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.fufeng.concurrent.cases.pool;
+package org.fufeng.concurrent.cases.pool.v1;
 
-import java.util.concurrent.BlockingQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
- * @description 工作线程
+ * @description 线程池 第一版
+ * 常规使用线程的池化处理
  * @create 2020-11-10
  */
-public class WorkThread extends Thread {
+public class ThreadPoolV1 {
 
     /**
-     * 执行的工作任务
+     * 自定义线程池
      */
-    private final BlockingQueue<Runnable> workRunnable;
+    private final List<Thread> threadPool = new ArrayList<>();
 
     /**
-     * 构造阻塞任务队列
+     * 从线程池中获取一个线程
      *
-     * @param workRunnable 阻塞任务队列
+     * @param runnable 执行的具体逻辑
+     * @return 线程
      */
-    public WorkThread(BlockingQueue<Runnable> workRunnable) {
-        this.workRunnable = workRunnable;
+    public Thread acquire(Runnable runnable) {
+        //return new Thread(runnable);
+        if (threadPool.size() == 0) {
+            Thread thread = new Thread(runnable);
+            threadPool.add(thread);
+        }
+        return threadPool.get(0);
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            if (Thread.currentThread().isInterrupted()) {
-                break;
-            }
-            try {
-                final Runnable runnable = workRunnable.take();
-                runnable.run();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    /**
+     * 释放已经使用过的线程信息
+     *
+     * @param thread 线程
+     */
+    public void release(Thread thread) {
+        threadPool.add(thread);
+    }
+
+    public static void main(String[] args) {
+        ThreadPoolV1 threadPoolV1 = new ThreadPoolV1();
+        final Thread thread = threadPoolV1.acquire(() -> {
+            System.out.println("hello , fufeng!");
+        });
+        threadPoolV1.release(thread);
     }
 
 }
