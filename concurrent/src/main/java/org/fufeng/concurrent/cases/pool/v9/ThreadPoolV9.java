@@ -36,6 +36,8 @@ import java.util.concurrent.ForkJoinPool;
  * ForkJoinTask 有两个子类——RecursiveAction 和 RecursiveTask，都是用递归的方式来处理分治任务的。
  * 这两个子类都定义了抽象方法compute()，不过区别是 RecursiveAction 定义的 compute() 没有返回值，
  * 而RecursiveTask 定义的 compute() 方法是有返回值的，这两个子类也是抽象类，在使用的时候，需要你定义子类去扩展
+ *
+ * <a href="http://gee.cs.oswego.edu/dl/papers/fj.pdf">Doug Lea 关于ffork/joins/a>
  * @create 2020-11-11
  */
 public class ThreadPoolV9 {

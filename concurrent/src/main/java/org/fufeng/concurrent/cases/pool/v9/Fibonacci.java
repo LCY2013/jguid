@@ -61,9 +61,13 @@ public class Fibonacci extends RecursiveTask<Integer> {
 
         // 创建异步子任务
         final Fibonacci fibonacci2 = new Fibonacci(this.num - 2);
-        fibonacci2.fork();
 
+        // 第一种不建议写法
+        //fibonacci2.fork();
         // 等待子结果合并，合并结果
-        return fibonacci2.join() + fibonacci1.join();
+        //return fibonacci2.join() + fibonacci1.join();
+
+        // 正确写法
+        return fibonacci2.compute() + fibonacci1.join();
     }
 }

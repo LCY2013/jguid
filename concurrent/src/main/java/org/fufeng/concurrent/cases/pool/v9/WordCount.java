@@ -55,8 +55,14 @@ public class WordCount extends RecursiveTask<Map<String, Integer>> {
             wordCount1.fork();
             // 新建缩小后的第二个任务
             final WordCount wordCount2 = new WordCount(fc, mid, end);
-            wordCount2.fork();
-            return merge(wordCount2.join(), wordCount1.join());
+            // 这样的写法没有问题，问题出现在fork就使用新的线程去完成任务，而本身执行compute的线程却不执行任务
+            // 第一种写法
+            //wordCount2.fork();
+            //return merge(wordCount1.join(), wordCount2.join());
+
+            // 正确的写法
+            // 让正在执行的线程也进行任务处理，完美的利用所有的CPU核
+            return merge(wordCount2.compute(),wordCount1.join());
         }
     }
 
