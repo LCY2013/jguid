@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @program: jguid
  * @description: {@link ForkJoinPool} 窃取工作队列
+ *  归并排序
  * @author: <a href="https://github.com/lcy2013">MagicLuo</a>
  * @create: 2020-07-27
  * @see ForkJoinPool
