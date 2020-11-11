@@ -17,6 +17,7 @@
  */
 package org.fufeng.concurrent.cases.pool.v9;
 
+import java.util.Map;
 import java.util.concurrent.ForkJoinPool;
 
 /**
@@ -40,6 +41,15 @@ import java.util.concurrent.ForkJoinPool;
 public class ThreadPoolV9 {
 
     public static void main(String[] args) {
+        //case01();
+
+        case02();
+    }
+
+    /**
+     * fibonacci - fork/join 实现
+     */
+    private static void case01() {
         // 创建分治线程池
         final ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
 
@@ -51,6 +61,28 @@ public class ThreadPoolV9 {
 
         // 输出结果
         System.out.println(result);
+    }
+
+    /**
+     *  模拟 MapReduce 统计单词数量
+     */
+    private static void case02() {
+        // 创建分治线程池
+        final ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+
+        // 模拟单词输入源
+        final String[] fc = new String[]{
+                "hello luo","hello fufeng","hi magic","hi fufeng","welcome magic","welcome luo","hello word"
+        };
+
+        // 创建分治任务
+        final WordCount wordCount = new WordCount(fc,0,fc.length);
+
+        // 执行分治任务
+        final Map<String, Integer> result = forkJoinPool.invoke(wordCount);
+
+        // 遍历map所有信息
+        result.forEach((k,v) -> System.out.printf("%s %d\n",k,v));
     }
 
 }
