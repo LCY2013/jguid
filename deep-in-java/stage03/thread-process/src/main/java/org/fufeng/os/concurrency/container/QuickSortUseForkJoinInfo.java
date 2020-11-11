@@ -51,6 +51,7 @@ public class QuickSortUseForkJoinInfo {
 
     private static class QuickSortTask extends RecursiveAction {
 
+        private static final long serialVersionUID = -8217430615611487747L;
         private final Integer[] parts;
 
         private final int low;
