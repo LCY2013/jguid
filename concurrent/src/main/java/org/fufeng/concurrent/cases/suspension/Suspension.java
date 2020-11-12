@@ -39,26 +39,34 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Suspension {
 
     /**
-     * 模拟mq
+     * 模拟请求mq
      */
-    private static BlockingQueue<Object> mq = new ArrayBlockingQueue<>(10);
+    private static BlockingQueue<RpcRequest> reqMq = new ArrayBlockingQueue<>(10);
+    /**
+     * 模拟响应mq
+     */
+    private static BlockingQueue<RpcResponse> resMq = new ArrayBlockingQueue<>(10);
 
     /**
      * 请求消息id号
      */
-    private static AtomicLong reqIds = new AtomicLong(0);
+    private static final AtomicLong reqIds = new AtomicLong(0);
 
     public static void main(String[] args) {
+
+        // 模拟启动两个线程去处理请求和响应消息
+        handRequestMessage();
+        handResponseMessage();
+
         for (int i = 0; i < 5; i++) {
-            new Thread(()->{
-                // 测试Guarded Suspension 模式
-                final GuardedObject<RpcResponse> guardedObject = new GuardedObject<>();
+            new Thread(() -> {
                 // 发送异步的mq消息
                 final RpcRequest rpcRequest = new RpcRequest(reqIds.getAndIncrement(), "send message to mq");
                 sendRequestMessageToMQ(rpcRequest);
 
+                // 测试Guarded Suspension 模式
                 // 保存GuardedObject
-                GuardedObjectUtils.addGuardedObject(rpcRequest.getRequestId(), guardedObject);
+                final GuardedObject<RpcResponse> guardedObject = GuardedObject.newGuardedObject(rpcRequest.getRequestId());
 
                 // 等待返回值
                 final RpcResponse response = guardedObject.get(Objects::nonNull);
@@ -75,10 +83,29 @@ public class Suspension {
      */
     private static void sendRequestMessageToMQ(RpcRequest message) {
         //print(message);
-        new Thread(() -> {
+        reqMq.add(message);
+        /*new Thread(() -> {
             // 假如这里服务端已经处理完成
             sendResponseMessageToMQ(new RpcResponse(message.getRequestId(),200,
                     "success",null));
+        }).start();*/
+    }
+
+    /**
+     *  处理请求消息
+     */
+    private static void handRequestMessage() {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    final RpcRequest request = reqMq.take();
+                    // 假如这里服务端已经处理完成
+                    sendResponseMessageToMQ(new RpcResponse(request.getRequestId(),200,
+                            "success",null));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }).start();
     }
 
@@ -90,7 +117,9 @@ public class Suspension {
     private static void sendResponseMessageToMQ(RpcResponse message) {
         //print(message);
 
-        // 模拟处理时间
+        resMq.add(message);
+
+       /* // 模拟处理时间
         try {
             TimeUnit.SECONDS.sleep(new Random().nextInt(5));
         } catch (InterruptedException e) {
@@ -98,8 +127,25 @@ public class Suspension {
         }
 
         new Thread(() ->
-                GuardedObjectUtils.getGuardedObject(message.getReqId()).onChange(message)
-        ).start();
+                GuardedObject.fireEvent(message.getReqId(),message)
+        ).start();*/
+    }
+
+    /**
+     *  处理响应消息
+     */
+    private static void handResponseMessage() {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    final RpcResponse response = resMq.take();
+                    TimeUnit.SECONDS.sleep(new Random().nextInt(5));
+                    GuardedObject.fireEvent(response.getReqId(),response);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 

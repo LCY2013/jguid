@@ -17,6 +17,9 @@
  */
 package org.fufeng.concurrent.cases.suspension;
 
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -29,6 +32,11 @@ import java.util.function.Predicate;
  * @create 2020-11-12
  */
 public class GuardedObject<T> {
+
+    /**
+     * 保管所有的GuardedObject
+     */
+    private final static Map<Object, GuardedObject> guardedObjectMap = new ConcurrentHashMap<>();
 
     /**
      * 定义结果对象
@@ -91,7 +99,8 @@ public class GuardedObject<T> {
     }
 
     /**
-     *  事件通知方法
+     * 事件通知方法
+     *
      * @param object 结果
      */
     public void onChange(T object) {
@@ -99,8 +108,32 @@ public class GuardedObject<T> {
         try {
             this.result = object;
             condition.signalAll();
-        }finally {
+        } finally {
             reentrantLock.unlock();
+        }
+    }
+
+    /**
+     * 向容器中添加GuardedObject
+     *
+     * @param reqId 请求id
+     */
+    public static <T> GuardedObject<T> newGuardedObject(long reqId) {
+        final GuardedObject<T> guardedObject = new GuardedObject<>();
+        guardedObjectMap.put(reqId, guardedObject);
+        return guardedObject;
+    }
+
+    /**
+     * 获取容器中的GuardedObject
+     *
+     * @param reqId 请求id
+     * @return GuardedObject
+     */
+    public static <K, T> void fireEvent(K reqId, T message) {
+        final GuardedObject<T> guardedObject = guardedObjectMap.remove(reqId);
+        if (Objects.nonNull(guardedObject)) {
+            guardedObject.onChange(message);
         }
     }
 
