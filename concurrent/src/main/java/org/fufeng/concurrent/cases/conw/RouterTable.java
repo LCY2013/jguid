@@ -27,6 +27,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
  * @description 路由表设计
+ *      使用 copy-on-write
  * @create 2020-11-12
  */
 public class RouterTable {
