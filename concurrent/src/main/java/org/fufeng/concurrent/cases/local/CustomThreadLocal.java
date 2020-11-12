@@ -36,7 +36,7 @@ public class CustomThreadLocal<T> {
     /**
      * 定义保存自定义线程值的容器
      */
-    private final Map<Thread, T> threadValueMap = new ConcurrentHashMap<>();
+    private final Map<Thread, Map<CustomThreadLocal<T>, T>> threadValueMap = new ConcurrentHashMap<>();
 
     /**
      * 通过自定义CustomThreadLocal获取需要的对象信息
@@ -46,20 +46,39 @@ public class CustomThreadLocal<T> {
     public T get() {
         Thread t = Thread.currentThread();
         // 模拟从map容器中获取数据
-        final T value = this.threadValueMap.get(t);
+        final Map<CustomThreadLocal<T>, T> map = this.threadValueMap.get(t);
         // 如果该值存在就进行返回
-        if (Objects.nonNull(value)) {
-            return value;
+        if (Objects.nonNull(map)) {
+            return map.get(this);
         }
         // 设置初始化值，然后返回
         return setInitialValue();
     }
 
     /**
+     * 设置值
+     *
+     * @param value 值
+     */
+    public void set(T value) {
+        Thread t = Thread.currentThread();
+        final Map<CustomThreadLocal<T>, T> threadLocalTMap = this.threadValueMap.get(t);
+        if (Objects.nonNull(threadLocalTMap)) {
+            threadLocalTMap.put(this,value);
+        }else {
+            final Map<CustomThreadLocal<T>, T> map = new ConcurrentHashMap<>();
+            map.put(this, value);
+            threadValueMap.put(Thread.currentThread(), map);
+        }
+    }
+
+    /**
      * 移除当前线程存在的值信息
      */
     public void remove() {
-        this.threadValueMap.remove(Thread.currentThread());
+        final Map<CustomThreadLocal<T>, T> threadLocalTMap =
+                this.threadValueMap.get(Thread.currentThread());
+        threadLocalTMap.remove(this);
     }
 
     /**
@@ -72,7 +91,9 @@ public class CustomThreadLocal<T> {
         // 调用初始化方法
         T value = initialValue();
         if (Objects.nonNull(value)) {
-            threadValueMap.put(Thread.currentThread(), value);
+            final Map<CustomThreadLocal<T>, T> map = new ConcurrentHashMap<>();
+            map.put(this, value);
+            threadValueMap.put(Thread.currentThread(), map);
         }
         return value;
     }
@@ -121,14 +142,14 @@ public class CustomThreadLocal<T> {
         final CustomThreadLocal<SimpleDateFormat> customThreadLocal =
                 CustomThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
         for (int i = 0; i < 4; i++) {
-            new Thread(()->{
+            new Thread(() -> {
                 final SimpleDateFormat simpleDateFormat = customThreadLocal.get();
-                print(simpleDateFormat,simpleDateFormat.format(new Date()));
+                print(simpleDateFormat, simpleDateFormat.format(new Date()));
             }).start();
         }
     }
 
-    private static void print(Object sdf,String message) {
-        System.out.printf("[%s],%s,%s\n", Thread.currentThread().getName(),sdf, message);
+    private static void print(Object sdf, String message) {
+        System.out.printf("[%s],%s,%s\n", Thread.currentThread().getName(), sdf, message);
     }
 }
