@@ -18,6 +18,11 @@
 package org.fufeng.concurrent.cases.local;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
@@ -34,10 +39,34 @@ public class ThreadSimpleFormatDate {
             ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
     /**
-     *  通过ThreadLocal获取日期格式化组件
+     * 通过ThreadLocal获取日期格式化组件
+     *
      * @return 日期格式化组件
      */
     public static SimpleDateFormat getDateFormat() {
         return sdf.get();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        final CountDownLatch countDownLatch = new CountDownLatch(4);
+        final List<SimpleDateFormat> sdfList = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            new Thread(() -> {
+                final SimpleDateFormat simpleDateFormat = sdf.get();
+                sdfList.add(simpleDateFormat);
+                print(simpleDateFormat, simpleDateFormat.format(new Date()));
+                countDownLatch.countDown();
+            }).start();
+        }
+        System.out.printf("%s\n", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+
+        countDownLatch.await();
+        System.out.println(sdfList.get(0)==sdfList.get(1));
+        System.out.println(sdfList.get(1)==sdfList.get(2));
+        System.out.println(sdfList.get(2)==sdfList.get(3));
+    }
+
+    private static void print(Object sdf, String message) {
+        System.out.printf("[%s],%s,%s\n", Thread.currentThread().getName(), sdf, message);
     }
 }
