@@ -67,6 +67,6 @@ public class ThreadSimpleFormatDate {
     }
 
     private static void print(Object sdf, String message) {
-        System.out.printf("[%s],%s,%s\n", Thread.currentThread().getName(), sdf, message);
+        System.out.printf("[%s],%s,%s\n", Thread.currentThread().getName(), System.identityHashCode(sdf), message);
     }
 }

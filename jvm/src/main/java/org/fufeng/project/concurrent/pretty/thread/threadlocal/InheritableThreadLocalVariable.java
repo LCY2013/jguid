@@ -12,13 +12,13 @@ public class InheritableThreadLocalVariable {
      * 创建ThreadLocal变量
      *  {@link ThreadLocal}
      */
-    private static ThreadLocal<String> threadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<String> threadLocal = new ThreadLocal<>();
 
     /**
      * 创建ThreadLocal变量
      *  {@link ThreadLocal}
      */
-    private static ThreadLocal<String> inheritableThreadLocal = new InheritableThreadLocal<>();
+    private static final ThreadLocal<String> inheritableThreadLocal = new InheritableThreadLocal<>();
 
     public static void main(String[] args) {
 
@@ -50,7 +50,7 @@ public class InheritableThreadLocalVariable {
 
     /**
      * 在这里ThreadLocal是一个操作工具，用户操作当前运行时的线程的 ThreadLocal.ThreadLocalMap threadLocals = null;
-     * 这里在不用的线程中是不通用的，原因是这里存在两个线程，一个main，一个thread-0，所以子线程不能够获取到主线程放入threadLocal中的值
+     * 这里在不同的线程中是不通用的，原因是这里存在两个线程，一个main，一个thread-0，所以子线程不能够获取到主线程放入threadLocal中的值
      * 详细可以看{@link Thread}中对threadLocals这个成员变量的初始化
      */
     private static void notGetThreadLocalInfo() {

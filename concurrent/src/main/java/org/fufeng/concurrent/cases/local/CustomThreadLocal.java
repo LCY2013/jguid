@@ -64,8 +64,8 @@ public class CustomThreadLocal<T> {
         Thread t = Thread.currentThread();
         final Map<CustomThreadLocal<T>, T> threadLocalTMap = this.threadValueMap.get(t);
         if (Objects.nonNull(threadLocalTMap)) {
-            threadLocalTMap.put(this,value);
-        }else {
+            threadLocalTMap.put(this, value);
+        } else {
             final Map<CustomThreadLocal<T>, T> map = new ConcurrentHashMap<>();
             map.put(this, value);
             threadValueMap.put(Thread.currentThread(), map);
@@ -150,6 +150,6 @@ public class CustomThreadLocal<T> {
     }
 
     private static void print(Object sdf, String message) {
-        System.out.printf("[%s],%s,%s\n", Thread.currentThread().getName(), sdf, message);
+        System.out.printf("[%s],%s,%s\n", Thread.currentThread().getName(), System.identityHashCode(sdf), message);
     }
 }
