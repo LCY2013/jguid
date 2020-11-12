@@ -21,6 +21,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -30,10 +31,14 @@ import java.util.concurrent.atomic.AtomicLong;
  * @description Guarded Suspension 模式(保护性暂停)
  * <p>
  * message(请求业务)
- * ->  MQ   ->
- * process message(处理业务)
- * <-  MQ   <-
+ *                      ->  MQ   ->
+ *                                      process message(处理业务)
+ *                      <-  MQ   <-
  * message receiver
+ *
+ * 类比dubbo  DefaultFuture
+ *
+ * Guarded Suspension 模式也常被称作 Guarded Wait 模式、Spin Lock 模式
  * @create 2020-11-12
  */
 public class Suspension {
@@ -66,7 +71,7 @@ public class Suspension {
 
                 // 测试Guarded Suspension 模式
                 // 保存GuardedObject
-                final GuardedObject<RpcResponse> guardedObject = GuardedObject.newGuardedObject(rpcRequest.getRequestId());
+                final GuardedObject<RpcResponse> guardedObject = GuardedObject.newGuardedObject(rpcRequest.getReqId());
 
                 // 等待返回值
                 final RpcResponse response = guardedObject.get(Objects::nonNull);
@@ -74,6 +79,10 @@ public class Suspension {
 
             }).start();
         }
+
+        Executors.newScheduledThreadPool(1).schedule(()->{
+            System.exit(-1);
+        },5,TimeUnit.SECONDS);
     }
 
     /**
@@ -100,8 +109,8 @@ public class Suspension {
                 try {
                     final RpcRequest request = reqMq.take();
                     // 假如这里服务端已经处理完成
-                    sendResponseMessageToMQ(new RpcResponse(request.getRequestId(),200,
-                            "success",null));
+                    sendResponseMessageToMQ(new RpcResponse(request.getReqId(),200,
+                            "success",request));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

@@ -28,7 +28,7 @@ public class RpcRequest {
     /**
      *  请求ID
      */
-    private long requestId;
+    private long reqId;
 
     /**
      *  请求参数
@@ -36,16 +36,16 @@ public class RpcRequest {
     private Object requestData;
 
     public RpcRequest(long requestId, Object requestData) {
-        this.requestId = requestId;
+        this.reqId = requestId;
         this.requestData = requestData;
     }
 
-    public long getRequestId() {
-        return requestId;
+    public long getReqId() {
+        return reqId;
     }
 
-    public void setRequestId(long requestId) {
-        this.requestId = requestId;
+    public void setReqId(long reqId) {
+        this.reqId = reqId;
     }
 
     public Object getRequestData() {
@@ -59,7 +59,7 @@ public class RpcRequest {
     @Override
     public String toString() {
         return "RpcRequest{" +
-                "requestId=" + requestId +
+                "requestId=" + reqId +
                 ", requestData=" + requestData +
                 '}';
     }

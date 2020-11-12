@@ -17,6 +17,7 @@
  */
 package org.fufeng.concurrent.cases.suspension;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -44,6 +45,11 @@ public class GuardedObject<T> {
     private T result;
 
     /**
+     *  请求id
+     */
+    private Long reqId;
+
+    /**
      * 定义可重入锁
      */
     private final ReentrantLock reentrantLock = new ReentrantLock();
@@ -52,6 +58,16 @@ public class GuardedObject<T> {
      * 定义条件
      */
     private final Condition condition = reentrantLock.newCondition();
+
+    /**
+     *  请求开始的时间
+     */
+    private Date startRequestTime;
+
+    /**
+     * 设置请求超时时间
+     */
+    private final long timeout = 3000;
 
     /**
      * 定义获取方式
@@ -64,7 +80,13 @@ public class GuardedObject<T> {
         try {
             // MESA 管程经典写法
             while (!predicate.test(this.result)) {
-                condition.await();
+                // 是否超时
+                if (System.currentTimeMillis() - this.startRequestTime.getTime() > timeout) {
+                    System.out.printf("%d 请求超时\n",this.reqId);
+                    guardedObjectMap.remove(this.reqId);
+                    break;
+                }
+                condition.await(timeout,TimeUnit.MILLISECONDS);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -87,6 +109,11 @@ public class GuardedObject<T> {
         try {
             // MESA 管程经典写法
             while (!predicate.test(this.result)) {
+                // 是否超时
+                if (System.currentTimeMillis() - this.startRequestTime.getTime() > timeout) {
+                    guardedObjectMap.remove(this.reqId);
+                    break;
+                }
                 condition.await(timeout, timeUnit);
             }
         } catch (InterruptedException e) {
@@ -120,6 +147,8 @@ public class GuardedObject<T> {
      */
     public static <T> GuardedObject<T> newGuardedObject(long reqId) {
         final GuardedObject<T> guardedObject = new GuardedObject<>();
+        guardedObject.startRequestTime = new Date();
+        guardedObject.reqId = reqId;
         guardedObjectMap.put(reqId, guardedObject);
         return guardedObject;
     }
