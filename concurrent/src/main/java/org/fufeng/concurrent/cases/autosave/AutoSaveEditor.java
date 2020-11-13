@@ -26,6 +26,16 @@ import java.util.concurrent.TimeUnit;
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
  * @description 自动保存任务
+ * <p>
+ * Balking 模式和 Guarded Suspension 模式从实现上看似乎没有多大的关系，
+ * Balking 模式只需要用互斥锁就能解决，
+ * 而 Guarded Suspension 模式则要用到管程这种高级的并发原语；
+ * <p>
+ * 从应用的角度来看，它们解决的都是“线程安全的 if”语义，
+ * 不同之处在于，Guarded Suspension 模式会等待 if 条件为真，而 Balking 模式不会等待。
+ * <p>
+ * Balking 模式的经典实现是使用互斥锁，你可以使用 Java 语言内置 synchronized，也可以使用 SDK 提供 Lock；
+ * 如果你对互斥锁的性能不满意，可以尝试采用 volatile 方案，不过使用 volatile 方案需要你更加谨慎。
  * @create 2020-11-12
  */
 public class AutoSaveEditor {
@@ -46,13 +56,14 @@ public class AutoSaveEditor {
     private void save() {
         final int editor = editor();
         if (editor != content) {
-            System.out.printf("开始保存 [%d] ...\n",editor);
+            System.out.printf("开始保存 [%d] ...\n", editor);
             this.content = editor;
         }
     }
 
     /**
-     *  是否已经改变
+     * 是否已经改变
+     *
      * @return changed {@code true} unchanged{@code false}
      */
     private boolean isChanged() {
@@ -76,7 +87,7 @@ public class AutoSaveEditor {
 
         final ScheduledExecutorService scheduledExecutorService =
                 Executors.newScheduledThreadPool(1);
-        scheduledExecutorService.scheduleWithFixedDelay(autoSaveEditor::save,0,1, TimeUnit.SECONDS);
+        scheduledExecutorService.scheduleWithFixedDelay(autoSaveEditor::save, 0, 1, TimeUnit.SECONDS);
     }
 
 }
