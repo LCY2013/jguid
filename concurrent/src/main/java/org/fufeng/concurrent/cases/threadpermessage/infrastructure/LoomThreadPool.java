@@ -15,42 +15,49 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.fufeng.concurrent.cases.autosave;
+package org.fufeng.concurrent.cases.threadpermessage.infrastructure;
 
-//import javax.annotation.PostConstruct;
+import org.eclipse.jetty.util.thread.ThreadPool;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
- * @description Balking 模式 单次初始化
+ * @description 使用jvm级别协程
  * @create 2020-11-13
  */
-public class InitV1 {
+public class LoomThreadPool implements ThreadPool {
 
     /**
-     * 只初始化一次的标示位
+     *  创建JVM级别协程
      */
-    private volatile boolean init;
+    ExecutorService executorService = Executors.newVirtualThreadExecutor();
 
-    /**
-     * 应用启动调用
-     * <p>
-     * jsr-250
-     */
-    //@PostConstruct
-    public void init() {
-        if (init) {
-            return;
-        }
-        justOneInit();
+    @Override
+    public void join() throws InterruptedException {
+        executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
     }
 
-    /**
-     * 只初始化一次方法
-     */
-    private void justOneInit() {
-        System.out.printf("[%s] just one init\n", Thread.currentThread().getName());
-        this.init = true;
+    @Override
+    public int getThreads() {
+        return 1;
     }
 
+    @Override
+    public int getIdleThreads() {
+        return 1;
+    }
+
+    @Override
+    public boolean isLowOnThreads() {
+        return false;
+    }
+
+    @Override
+    public void execute(Runnable command) {
+        executorService.submit(command);
+    }
 }

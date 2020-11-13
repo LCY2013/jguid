@@ -17,7 +17,6 @@
  */
 package org.fufeng.concurrent.cases.cache;
 
-import sun.java2d.pipe.ValidatePipe;
 
 import java.util.HashMap;
 import java.util.Map;

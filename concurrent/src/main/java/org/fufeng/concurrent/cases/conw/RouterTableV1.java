@@ -17,7 +17,7 @@
  */
 package org.fufeng.concurrent.cases.conw;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
@@ -57,7 +57,7 @@ public class RouterTableV1 {
      * <p>
      * 如spring 容器启动后的回调
      */
-    @PostConstruct
+    //@PostConstruct
     public void init() {
         // 每30秒扫描一下路由表信息是否已经改变
         executorService.scheduleWithFixedDelay(this::autoSave, 30, 30, TimeUnit.SECONDS);
