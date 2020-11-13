@@ -32,7 +32,7 @@ import org.fufeng.concurrent.cases.threadpermessage.infrastructure.LoomThreadPoo
  *
  * ab压测结果
  *
- * ab -n 1 -c 1 http://127.0.0.1:8080/
+ * ab -r -n 1 -c 1 http://127.0.0.1:8080/
  *
  * Server Software:        Jetty(9.4.31.v20200723)
  * Server Hostname:        127.0.0.1
@@ -101,3 +101,4 @@ public class JettyServer {
     }
 
 }
+
