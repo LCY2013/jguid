@@ -52,6 +52,13 @@ import java.util.concurrent.locks.LockSupport;
  * ./configure --prefix=/usr/local/httpd -with-apr=/usr/local/opt/apr -with-apr-util=/usr/local/opt/apr-util -with-pcre=/usr/local/Cellar/pcre/8.44/
  * make
  * make install
+ *
+ *
+ * 1. 首先通过 ulimit -u 512 将用户能创建的最大进程数（包括线程）设置为 512；
+ * 2. 启动 Fiber 实现的 echo 程序；
+ * 3. 利用压测工具 ab 进行压测：ab -r -c 20000 -n 200000 http://127.0.0.1:8080/
+ *
+ * top -Hp pid 查看 loom 实现的 echo 程序的进程信息
  * @create 2020-11-13
  */
 public class FiberEchoServer {
@@ -64,7 +71,6 @@ public class FiberEchoServer {
             // nio ServerSocketChannel 初始化
             serverSocketChannel =
                     ServerSocketChannel.open().bind(new InetSocketAddress(8080));
-
             while (true) {
                 // 接受客户端连接
                 final SocketChannel socketChannel = serverSocketChannel.accept();
@@ -97,6 +103,10 @@ public class FiberEchoServer {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new FiberEchoServer().openServer();
     }
 
 }
