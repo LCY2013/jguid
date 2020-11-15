@@ -24,3 +24,21 @@ $ curl http://localhost:8080/sql -> Returns [{pg_sleep=}] after 1000ms using Pos
     This simulates blocking I/O over the network. 
     Note that using JDBC is bounded by the connection pool and the pool limits the actual concurrency.
 ```
+
+### 需要修改的线程相关地方
+```
+Apache Tomcat 
+    (org.apache.tomcat.util.threads.TaskThreadFactory, 
+    org.apache.tomcat.util.threads.ThreadPoolExecutor, 
+    org.apache.tomcat.util.net.AbstractEndpoint (AcceptorThread), 
+    org.apache.tomcat.util.net.NioBlockingSelector.BlockPoller, 
+    org.apache.tomcat.util.net.NioEndpoint.Poller)
+
+Spring Boot 
+    (org.springframework.boot.autoconfigure.BackgroundPreinitializer, 
+    org.springframework.boot.autoconfigure.condition.OnClassCondition.ThreadedOutcomesResolver, 
+    org.springframework.boot.web.embedded.tomcat.TomcatWebServer (startDaemonAwaitThread))
+
+HikariCP 
+    (com.zaxxer.hikari.util.UtilityElf (ThreadPoolExecutor))
+```
