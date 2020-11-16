@@ -133,6 +133,11 @@ public class SimpleLimiterV2 {
         final SimpleLimiterV2 v2 = new SimpleLimiterV2(5);
         // 用于记录上次运行的时间
         AtomicLong prev = new AtomicLong(System.nanoTime());
+        try {
+            TimeUnit.MILLISECONDS.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // 测试
         for (int i = 0; i < 10; i++) {
             // 限流器限流
