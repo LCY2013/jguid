@@ -17,56 +17,72 @@
  */
 package org.fufeng.concurrent.cases.guava;
 
-import com.google.common.util.concurrent.RateLimiter;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
- * @description 请求限流器
- * <p>
- * 利用guava实现请求限流器
- * <p>
- * 实现：令牌桶算法
- * 核心是要想通过限流器，必须拿到令牌
+ * @description 令牌桶算法实现一个简单的限流器
  * @create 2020-11-16
  */
-public class RequestLimiter {
+public class SimpleLimiterV1 {
 
     /**
-     * 限流器流速 ：2个请求/秒
-     * <p>
-     * 每500毫秒通过一个请求
+     * 下一次产生令牌的时间
      */
-    private final RateLimiter rateLimiter = RateLimiter.create(2.0);
+    private long next = System.nanoTime();
 
     /**
-     * 任务执行线程池
+     * 发放令牌间隔：纳秒
      */
-    private final ExecutorService executor = Executors.newFixedThreadPool(5);
+    private long interval = 1000_000_000;
 
-    private void request() {
-        // 用于记录上次运行的时间
-        AtomicLong prev = new AtomicLong(System.nanoTime());
-        // 测试
-        for (int i = 0; i < 10; i++) {
-            // 限流器限流
-            rateLimiter.acquire();
-            // 提交任务异步执行
-            executor.execute(() -> {
-                long cur = System.nanoTime();
-                // 打印时间
-                System.out.println((cur - prev.get()) / 1000_000);
-                prev.set(cur);
-            });
+    /**
+     * 预占有令牌，返回能够获取令牌的时间
+     *
+     * @return 返回能够获取令牌的时间
+     */
+    private synchronized long reserve(long now) {
+        // 请求时间在下一次令牌产生时间之后
+        // 重新计算令牌的下一次产生时间
+        if (now > next) {
+            // 将下一次令牌生成的时间设置为当前获取令牌的时间
+            next = now;
+        }
+
+        // 能够获取令牌的时间
+        long at = next;
+        // 设置下一次获取令牌的时间
+        next += interval;
+
+        // 返回线程需要等待的时间
+        return Math.max(at, 0L);
+    }
+
+    /**
+     * 申请令牌
+     */
+    private void acquire() {
+        // 申请令牌时间
+        final long now = System.nanoTime();
+        // 预占令牌时间
+        final long at = reserve(now);
+        // 等待时间
+        long waitTime = Math.max(at, 0L);
+
+        // 计算出下一个令牌的时间点是否大于0
+        if (at > 0) {
+            try {
+                TimeUnit.NANOSECONDS.sleep(waitTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public static void main(String[] args) {
-        RequestLimiter rl = new RequestLimiter();
-        rl.request();
+        System.out.println(System.currentTimeMillis());
+        System.out.println(System.nanoTime());
     }
+
 }
