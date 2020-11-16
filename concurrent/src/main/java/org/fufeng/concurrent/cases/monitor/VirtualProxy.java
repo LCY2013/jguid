@@ -40,7 +40,7 @@ public class VirtualProxy {
     /**
      * 监控系统时候已经启动
      */
-    private volatile boolean started;
+    private boolean started;
 
     /**
      * 模拟被监控系统业务处理
