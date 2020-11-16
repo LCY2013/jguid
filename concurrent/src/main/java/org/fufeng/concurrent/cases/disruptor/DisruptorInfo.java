@@ -28,6 +28,10 @@ import java.util.concurrent.TimeUnit;
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
  * @description disruptor 使用案例
+ *
+ *  Java 8 中，提供了避免伪共享的注解：@sun.misc.Contended，
+ *  通过这个注解就能轻松避免伪共享（需要设置 JVM参数 -XX:-RestrictContended）。
+ *  不过避免伪共享是以牺牲内存为代价的。
  * @create 2020-11-16
  * @see Disruptor
  */
@@ -43,7 +47,7 @@ public class DisruptorInfo {
      * 构建disruptor
      */
     private Disruptor<LongEvent> disruptor =
-            new Disruptor<LongEvent>(
+            new Disruptor<>(
                     LongEvent::new,
                     bufferSize,
                     DaemonThreadFactory.INSTANCE
