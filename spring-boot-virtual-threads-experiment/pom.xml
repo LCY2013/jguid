@@ -15,6 +15,8 @@
         <java.version>16</java.version>
         <!-- Requires a local build of https://github.com/mp911de/pgjdbc/tree/loom -->
         <!-- <postgresql.version>42.3.0-loom-SNAPSHOT</postgresql.version> -->
+        <maven.compiler.target>16</maven.compiler.target>
+        <maven.compiler.source>16</maven.compiler.source>
     </properties>
 
     <dependencies>
@@ -56,8 +58,8 @@
                     <parameters>true</parameters>
                     <release>16</release>
                     <compilerArgs>--enable-preview</compilerArgs>
-                    <source>15</source>
-                    <target>15</target>
+                    <source>16</source>
+                    <target>16</target>
                     <parameters>true</parameters>
                 </configuration>
             </plugin>

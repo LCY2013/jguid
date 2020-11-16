@@ -42,3 +42,12 @@ Spring Boot
 HikariCP 
     (com.zaxxer.hikari.util.UtilityElf (ThreadPoolExecutor))
 ```
+
+### idea中启动
+```
+1、在项目pom中添加jdk版本依赖至 16
+    <maven.compiler.target>16</maven.compiler.target>
+    <maven.compiler.source>16</maven.compiler.source>
+
+2、项目启动时添加 jvm 参数信息 -DvirtualThreads=true
+```
