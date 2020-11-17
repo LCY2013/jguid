@@ -15,45 +15,40 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.fufeng.concurrent.cases.stm.one;
-
-import org.multiverse.api.StmUtils;
-import org.multiverse.api.references.TxnLong;
-
-import static org.multiverse.api.StmUtils.atomic;
+package org.fufeng.concurrent.cases.stm.two;
 
 /**
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
- * @description 用户类型，利用STM(Multiverse Software Transactional Memory)操作
- * <p>
- * 原理：（MVCC）Multi-Version Concurrency Control
+ * @description STM 全局定义
  * @create 2020-11-17
  */
-public class Account {
+public final class STM {
 
     /**
-     * 余额
+     * 私有化构造函数
      */
-    private TxnLong balance;
-
-    public Account(long balance) {
-        this.balance = StmUtils.newTxnLong(balance);
+    private STM() {
     }
 
     /**
-     * 转账给某个用户
-     *
-     * @param to  转账到某个用户
-     * @param amt 金额
+     * 提交事务的全局锁对象
      */
-    public void transfer(Account to, int amt) {
-        // 原子化操作
-        atomic(() -> {
-            if (this.balance.get() > amt) {
-                this.balance.decrement(amt);
-                to.balance.increment(amt);
-            }
-        });
+    protected final static Object commitLock = new Object();
+
+    /**
+     * 事务运行的原子性操作函数
+     */
+    public static void atomic(TxnRunnable runnable) {
+        boolean committed = false;
+        // 利用自旋的方式判断是否已经提交成功
+        while (!committed) {
+            // 创建新事务
+            final STMTxn txn = new STMTxn();
+            // 执行事务逻辑
+            runnable.run(txn);
+            // 提交事务
+            committed = txn.commit();
+        }
     }
 }

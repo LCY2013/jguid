@@ -15,45 +15,32 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.fufeng.concurrent.cases.stm.one;
-
-import org.multiverse.api.StmUtils;
-import org.multiverse.api.references.TxnLong;
-
-import static org.multiverse.api.StmUtils.atomic;
+package org.fufeng.concurrent.cases.stm.two;
 
 /**
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
- * @description 用户类型，利用STM(Multiverse Software Transactional Memory)操作
+ * @description 一个带有版本号信息的对象模型
  * <p>
- * 原理：（MVCC）Multi-Version Concurrency Control
+ * MVCC 理论，数据的每一次修改都对应着一个唯一的版本号，所以不存在仅仅改变 value 或者 version 的情况，
+ * 用不变性模式就可以很好地解决这个问题，所以 VersionedRef 这个类被我们设计成了不可变的。
  * @create 2020-11-17
  */
-public class Account {
+public final class VersionedRef<T> {
 
     /**
-     * 余额
+     *  引用的对象
      */
-    private TxnLong balance;
-
-    public Account(long balance) {
-        this.balance = StmUtils.newTxnLong(balance);
-    }
+    protected final T value;
 
     /**
-     * 转账给某个用户
-     *
-     * @param to  转账到某个用户
-     * @param amt 金额
+     *  当前引用对象的版本号
      */
-    public void transfer(Account to, int amt) {
-        // 原子化操作
-        atomic(() -> {
-            if (this.balance.get() > amt) {
-                this.balance.decrement(amt);
-                to.balance.increment(amt);
-            }
-        });
+    protected final long version;
+
+    public VersionedRef(T value, long version) {
+        this.value = value;
+        this.version = version;
     }
+
 }

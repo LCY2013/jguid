@@ -15,19 +15,12 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.fufeng.concurrent.cases.stm.one;
-
-import org.multiverse.api.StmUtils;
-import org.multiverse.api.references.TxnLong;
-
-import static org.multiverse.api.StmUtils.atomic;
+package org.fufeng.concurrent.cases.stm.two;
 
 /**
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
- * @description 用户类型，利用STM(Multiverse Software Transactional Memory)操作
- * <p>
- * 原理：（MVCC）Multi-Version Concurrency Control
+ * @description 自定义STM 版本的转账操作
  * @create 2020-11-17
  */
 public class Account {
@@ -35,25 +28,31 @@ public class Account {
     /**
      * 余额
      */
-    private TxnLong balance;
+    private TxnRef<Long> balance;
 
     public Account(long balance) {
-        this.balance = StmUtils.newTxnLong(balance);
+        this.balance = new TxnRef<>(balance);
     }
 
     /**
-     * 转账给某个用户
+     * 转账给用个用户
      *
-     * @param to  转账到某个用户
-     * @param amt 金额
+     * @param to  转账到该用户
+     * @param amt 转账金额
      */
-    public void transfer(Account to, int amt) {
-        // 原子化操作
-        atomic(() -> {
-            if (this.balance.get() > amt) {
-                this.balance.decrement(amt);
-                to.balance.increment(amt);
+    public void transfer(Account to, long amt) {
+        STM.atomic((tnx) -> {
+            // 现在该事务中查询转账人的余额
+            final Long from = balance.getValue(tnx);
+            if (from >= amt) {
+                balance.setValue(tnx,from-amt);
+                final Long toBalance = to.balance.getValue(tnx);
+                to.balance.setValue(tnx,toBalance+amt);
             }
         });
+    }
+
+    public static void main(String[] args) {
+        
     }
 }
