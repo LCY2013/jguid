@@ -66,6 +66,14 @@
             <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- STM -->
+        <dependency>
+            <groupId>org.multiverse</groupId>
+            <artifactId>multiverse-core</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
