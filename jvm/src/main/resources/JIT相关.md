@@ -135,4 +135,4 @@ $fgrep 33644 jstack.pid210477.2020 -A 2
 ### 参考
 [j-lo-just-in-time](https://www.ibm.com/developerworks/cn/java/j-lo-just-in-time/index.html)
 
-[the-way-of-jit-optimization](https://zhuxingsheng.github.io/2017/04/05/the-way-of-jit-optimization/)
+[the-way-of-jit-optimization](http://www.zhuxingsheng.com/blog/jit-optimization.html)
