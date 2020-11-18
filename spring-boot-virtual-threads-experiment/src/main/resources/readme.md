@@ -8,7 +8,7 @@
    https://jdk.java.net/loom/
 
 3、Install Postgres locally or via Docker 
-    ($ docker run --name some-postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres). 
+    ($ docker run --name virtual-postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres). 
     No special schema required as we're Postgres for simulation of select pg_sleep(1).
 
 4、Build and run this project with Maven 

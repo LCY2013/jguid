@@ -82,13 +82,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+                    <verbose>true</verbose>
+                    <fork>true</fork>
+                    <!--<release>16</release>-->
+                    <!--<compilerArgs>&#45;&#45;enable-preview</compilerArgs>-->
+                    <!--<source>16</source>
+                    <target>16</target>-->
                     <parameters>true</parameters>
-                    <release>16</release>
-                    <compilerArgs>--enable-preview</compilerArgs>
-                    <encoding>UTF-8</encoding>
-                    <source>15</source>
-                    <target>15</target>
-                    <parameters>true</parameters>
+                    <executable>/Library/Java/JavaVirtualMachines/jdk-16.jdk/Contents/Home/bin/javac</executable>
+                    <compilerVersion>16</compilerVersion>
                 </configuration>
             </plugin>
             <plugin>
