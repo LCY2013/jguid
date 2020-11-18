@@ -13,29 +13,37 @@ import java.util.concurrent.TimeUnit;
 public class ConstantString {
 
     public static void main(String[] args) {
+
+        String str1 = "abc";
+        String str2 = new String("abc");
+        String str3 = str2.intern();
+        compareStr(str1, str2);
+        compareStr(str3, str2);
+        compareStr(str3, str1);
+
         String strOne = "abc";
         String strTwo = "abc";
 
         String strThree = new String("abc");
         String strFour = new String("abc");
 
-        compareStr(strOne,strTwo);
-        compareStr(strFour,strThree);
+        compareStr(strOne, strTwo);
+        compareStr(strFour, strThree);
 
         final ExecutorService executorService = Executors.newCachedThreadPool();
-        executorService.execute(()->{
+        executorService.execute(() -> {
             synchronizedStr(strOne);
         });
-        executorService.execute(()->{
+        executorService.execute(() -> {
             synchronizedStr(strTwo);
         });
-        executorService.execute(()->{
+        executorService.execute(() -> {
             synchronizedStr(strThree);
         });
-        executorService.execute(()->{
+        executorService.execute(() -> {
             synchronizedStr(strFour);
         });
-        executorService.execute(()->{
+        executorService.execute(() -> {
             synchronizedStr("a");
         });
         executorService.shutdown();
@@ -43,8 +51,8 @@ public class ConstantString {
 
     private static void synchronizedStr(String str) {
         final String intern = str.intern();
-        synchronized (intern){
-            System.out.println(Thread.currentThread().getName()+":"+str);
+        synchronized (intern) {
+            System.out.println(Thread.currentThread().getName() + ":" + str);
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
