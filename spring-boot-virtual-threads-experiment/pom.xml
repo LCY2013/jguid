@@ -64,6 +64,8 @@
                     <parameters>true</parameters>
                     <executable>/Library/Java/JavaVirtualMachines/jdk-16.jdk/Contents/Home/bin/javac</executable>
                     <compilerVersion>16</compilerVersion>
+                    <source>14</source>
+                    <target>14</target>
                 </configuration>
             </plugin>
             <plugin>
