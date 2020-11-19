@@ -111,7 +111,7 @@ JIT在编译字节码的时候，需要一个缓存来存放汇编指令，通�
 
 2、top -H 查看最耗费CPU的线程，printf "%x" PID 转换成十六进制PID
 
-3、jstack pid | grep 十六进程pid 查看这个线程在干嘛
+3、jstack pid | grep 十六进程thid 查看这个线程在干嘛
 ```
 JVM在启动初期解释字节码进行执行,当方法执行次数达到指定阈值后，触发JIT把字节码编译成机器码，这个过程消耗CPU资源比较严重。这个时候load会上升，处理请求的速度变慢，导致线程池满。通常JIT在工作时，在jstack中能看到C2 CompilerThread
 
