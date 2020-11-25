@@ -19,10 +19,7 @@ package org.fufeng.project.base.stream;
 
 import org.fufeng.project.base.stream.domain.Student;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -83,8 +80,20 @@ public class StreamAPI {
                 System.out.printf("%s - %s\n", k, v));
     }
 
+    /**
+     *  通过Stream 过滤某一个集合中带有某个前缀，长度最长的数据
+     */
+    private static void stream03(){
+        final List<String> stringList = Arrays.asList("罗132","罗282","张1","罗8737");
+        stringList.stream()
+                .filter(name -> name.startsWith("罗"))
+                .mapToInt(String::length)
+                .max()
+                .ifPresent(System.out::println);
+    }
+
     public static void main(String[] args) {
-        System.out.println("示例一");
+        /*System.out.println("示例一");
         final List<Student> studentList = new ArrayList<>();
         studentList.add(new Student("1","男",158));
         studentList.add(new Student("2","女",178));
@@ -93,9 +102,10 @@ public class StreamAPI {
         studentList.add(new Student("5","男",175));
         iterator01(studentList);
         stream01(studentList);
-        stream02(studentList);
+        stream02(studentList);*/
 
-
+        System.out.println("示例二");
+        stream03();
     }
 
 }
