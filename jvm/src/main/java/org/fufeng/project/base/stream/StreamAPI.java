@@ -33,9 +33,27 @@ import java.util.stream.Stream;
 public class StreamAPI {
 
     /**
+     * 测试迭代器对于int[]处理，查询数组中最小的数据
+     */
+    public static void iteratorForIntTest(int[] arr) {
+        long timeStart = System.currentTimeMillis();
+
+        int min = Integer.MAX_VALUE;
+        for(int i=0; i<arr.length; i++){
+            if(arr[i]<min)
+                min = arr[i];
+        }
+
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("Iterator 比较int最小值 花费的时间" + (timeEnd - timeStart));
+    }
+
+    /**
      * 通过传统的iterator 过滤分组一所中学里身高在 160cm 以上的男女同学
      */
-    private static void iterator01(List<Student> studentList) {
+    private static void iteratorForObjectTest(List<Student> studentList) {
+        long timeStart = System.currentTimeMillis();
+
         final Map<String, List<Student>> stuMap = new HashMap<>();
         for (Student student : studentList) {
             if (student.getHeight() > 160) {
@@ -51,33 +69,67 @@ public class StreamAPI {
                 }
             }
         }
-        System.out.println("iterator01");
+        /*System.out.println("iterator01");
         stuMap.forEach((k, v) ->
-                System.out.printf("%s - %s\n", k, v));
+                System.out.printf("%s - %s\n", k, v));*/
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("Iterator花费的时间" + (timeEnd - timeStart));
+    }
+
+    /**
+     * 通过Stream 串行，查询串行化的int[]最小值
+     */
+    public static void serialStreamForIntTest(int[] arr) {
+        long timeStart = System.currentTimeMillis();
+
+        Arrays.stream(arr).min().getAsInt();
+
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("SerialStream 比较int最小值 花费的时间" + (timeEnd - timeStart));
     }
 
     /**
      * 通过Stream 串行 过滤分组一所中学里身高在 160cm 以上的男女同学
      */
-    private static void stream01(List<Student> studentList) {
+    private static void streamForObjectTest(List<Student> studentList) {
+        long timeStart = System.currentTimeMillis();
+
         final Map<String, List<Student>> groupMap = studentList.stream()
                 .filter(student -> student.getHeight() > 160)
                 .collect(Collectors.groupingBy(Student::getSex));
-        System.out.println("stream01");
+        /*System.out.println("stream01");
         groupMap.forEach((k, v) ->
-                System.out.printf("%s - %s\n", k, v));
+                System.out.printf("%s - %s\n", k, v));*/
+        System.out.println("Stream串行花费的时间" + (System.currentTimeMillis() - timeStart));
+    }
+
+    /**
+     * 通过Stream 并行，查询串行化的int[]最小值
+     */
+    public static void parallelStreamForIntTest(int[] arr) {
+        long timeStart = System.currentTimeMillis();
+
+        Arrays.stream(arr).parallel().min().getAsInt();
+
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("ParallelStream 比较int最小值 花费的时间" + (timeEnd - timeStart));
     }
 
     /**
      * 通过Stream 并行 过滤分组一所中学里身高在 160cm 以上的男女同学
      */
-    private static void stream02(List<Student> studentList) {
+    private static void parallelStreamForObjectTest(List<Student> studentList) {
+        long timeStart = System.currentTimeMillis();
+
         final Map<String, List<Student>> groupMap = studentList.parallelStream()
                 .filter(student -> student.getHeight() > 160)
                 .collect(Collectors.groupingBy(Student::getSex));
-        System.out.println("stream02");
+        /*System.out.println("stream02");
         groupMap.forEach((k, v) ->
-                System.out.printf("%s - %s\n", k, v));
+                System.out.printf("%s - %s\n", k, v));*/
+
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("ParallelStream 比较int最小值 花费的时间" + (timeEnd - timeStart));
     }
 
     /**
@@ -120,8 +172,35 @@ public class StreamAPI {
         /*System.out.println("示例二");
         stream03();*/
 
-        System.out.println("示例三");
-        stream04();
+        /*System.out.println("示例三");
+        stream04();*/
+
+        // 测试四
+        /*List<Student> studentsList = new ArrayList<>();
+
+        for(int i=0; i<10000000; i++) {
+            Student stu = new Student();
+            stu.setHeight(156 + i);
+            stu.setSex(String.valueOf(i%2));
+            studentsList.add(stu);
+        }
+
+        iteratorForObjectTest(studentsList);
+        streamForObjectTest(studentsList);
+        parallelStreamForObjectTest(studentsList);*/
+
+        // 测试五
+        int[] arr = new int[100000000];
+
+    	Random r = new Random();
+		for(int i=0; i<arr.length; i++){
+			arr[i] = r.nextInt();
+		}
+
+    	iteratorForIntTest(arr);
+    	serialStreamForIntTest(arr);
+    	parallelStreamForIntTest(arr);
+
     }
 
 }

@@ -13,11 +13,11 @@ import java.util.concurrent.TimeUnit;
  *    B -> C 100
  *    期望：A 100 , B 200 , C 300
  */
-public class SynchronizedBanckAccount {
+public class SynchronizedBankAccount {
 
     private int balance;
 
-    public SynchronizedBanckAccount(int amt) {
+    public SynchronizedBankAccount(int amt) {
         this.balance = amt;
     }
 
@@ -26,7 +26,7 @@ public class SynchronizedBanckAccount {
      * @param targetAccount 目标账户
      * @param amt 转账金额
      */
-    synchronized void transfer(SynchronizedBanckAccount targetAccount,int amt){
+    synchronized void transfer(SynchronizedBankAccount targetAccount, int amt){
         if(this.balance > amt) {
             this.balance -= amt;
             try {
@@ -40,9 +40,9 @@ public class SynchronizedBanckAccount {
 
     public static void main(String[] args) {
         //新建三个用户
-        SynchronizedBanckAccount A = new SynchronizedBanckAccount(200);
-        SynchronizedBanckAccount B = new SynchronizedBanckAccount(200);
-        SynchronizedBanckAccount C = new SynchronizedBanckAccount(200);
+        SynchronizedBankAccount A = new SynchronizedBankAccount(200);
+        SynchronizedBankAccount B = new SynchronizedBankAccount(200);
+        SynchronizedBankAccount C = new SynchronizedBankAccount(200);
         /*final ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.execute(()->{
             A.transfer(B,100);
