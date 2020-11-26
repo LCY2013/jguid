@@ -92,6 +92,19 @@ public class StreamAPI {
                 .ifPresent(System.out::println);
     }
 
+    /**
+     *  通过Stream的并行流，过滤一个集合中带有某个前缀，长度最长的数据
+     */
+    private static void stream04() {
+        final List<String> stringList = Arrays.asList("罗132","罗282","张1","罗8737");
+        stringList.stream()
+                .parallel()
+                .filter(name -> name.startsWith("罗"))
+                .mapToInt(String::length)
+                .max()
+                .ifPresent(System.out::println);
+    }
+
     public static void main(String[] args) {
         /*System.out.println("示例一");
         final List<Student> studentList = new ArrayList<>();
@@ -104,8 +117,11 @@ public class StreamAPI {
         stream01(studentList);
         stream02(studentList);*/
 
-        System.out.println("示例二");
-        stream03();
+        /*System.out.println("示例二");
+        stream03();*/
+
+        System.out.println("示例三");
+        stream04();
     }
 
 }
