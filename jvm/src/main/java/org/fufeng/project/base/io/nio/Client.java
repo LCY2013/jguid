@@ -5,7 +5,7 @@
  *
  * ProjectName: jguid
  * @Author : <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
- * @date : 2020-11-19
+ * @date : 2020-12-07
  * @version : 1.0.0-RELEASE
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -15,53 +15,67 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.fufeng.project.base.list;
+package org.fufeng.project.base.io.nio;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * @author <a href="https://github.com/lcy2013">MagicLuo(扶风)</a>
  * @program jguid
- * @description 测试ArrayList 遍历移除元素
- * @create 2020-11-19
+ * @description nio client实现
+ * @create 2020-12-07
  */
-public class ListRemove {
+public class Client {
 
-    public static void main(String[] args) {
-        final List<String> foreachList = new ArrayList<>();
-        foreachList.add("1");
-        foreachList.add("2");
-        foreachList.add("3");
-        foreachList.add("4");
-        foreachList.add("5");
+    /**
+     * 默认主机地址
+     */
+    private static String DEFAULT_HOST = "127.0.0.1";
 
-        remove1(foreachList);
+    /**
+     * 默认端口号信息
+     */
+    private static int DEFAULT_PORT = 8080;
 
-        remove2(foreachList);
+    /**
+     * 客户端处理器
+     */
+    private static ClientHandler clientHandler;
+
+    /**
+     * 启动
+     */
+    public static void start() {
+        start(DEFAULT_HOST, DEFAULT_PORT);
     }
 
-    private static void remove2(List<String> foreachList) {
-        for (String str : foreachList) {
-            if (str.equals("2")) {
-                foreachList.remove(str);
-            }
-        }
-
-        foreachList.forEach(System.out::println);
+    /**
+     * 启动客户端服务
+     *
+     * @param host 主机信息
+     * @param port 端口信息
+     */
+    private static void start(String host, int port) {
+        clientHandler = new ClientHandler(port, host);
+        new Thread(clientHandler, "Client").start();
     }
 
-    private static void remove1(List<String> foreachList) {
-        final Iterator<String> iterator = foreachList.iterator();
-        while (iterator.hasNext()) {
-            final String str = iterator.next();
-            if (str.equals("2")) {
-                iterator.remove();
-            }
-        }
-        foreachList.forEach(System.out::println);
+    /**
+     * 向服务端发送消息
+     *
+     * @param msg 消息
+     * @return 是否成功 {@code true} 成功 {@code false} 失败
+     */
+    public static boolean sendMsg(String msg) throws IOException {
+        clientHandler.sendMsg(msg);
+        return true;
     }
 
+    public static void main(String[] args) throws IOException {
+        // 启动客户端
+        Client.start();
+        while (Client.sendMsg(new Scanner(System.in).nextLine())) ;
+    }
 
 }
