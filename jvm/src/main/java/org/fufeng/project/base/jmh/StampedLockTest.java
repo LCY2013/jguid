@@ -46,7 +46,7 @@ public class StampedLockTest {
     public double distanceFromOrigin() {
         // 获取乐观锁
         long readLock = lock.tryOptimisticRead();
-        double curX = x,curY = y;
+        double curX = x, curY = y;
         try {
             // 判断读期间是否有写操作
             if (!lock.validate(readLock)) {
@@ -91,15 +91,18 @@ public class StampedLockTest {
 
     public static void main(String[] args) {
         final StampedLockTest stampedLockTest = new StampedLockTest();
-        run(()-> stampedLockTest.move(1,2));
-        run(()-> stampedLockTest.move(1,2));
-        run(()-> stampedLockTest.move(1,2));
+        /*run(() -> stampedLockTest.move(1, 2));
+        run(() -> stampedLockTest.move(1, 2));
+        run(() -> stampedLockTest.move(1, 2));
         run(stampedLockTest::distanceFromOrigin);
-        run(()-> stampedLockTest.move(1,3));
+        run(() -> stampedLockTest.move(1, 3));
         run(stampedLockTest::distanceFromOrigin);
         run(stampedLockTest::distanceFromOrigin);
         run(stampedLockTest::distanceFromOrigin);
-        run(()-> stampedLockTest.move(1,3));
+        run(() -> stampedLockTest.move(1, 3));*/
+
+        // 不可重入示例,导致死锁
+        stampedLockTest.count();
     }
 
     /**
@@ -109,6 +112,32 @@ public class StampedLockTest {
      */
     private static void run(Runnable runnable) {
         new Thread(runnable).start();
+    }
+
+
+
+    // StampedLock 不可重入示例
+    private int count = 0 ;
+
+    public void count() {
+        long stamp = lock.writeLock();
+        try {
+            count1();
+            count++;
+            System.out.println("count：" + count);
+        } finally {
+            lock.unlockWrite(stamp);
+        }
+    }
+
+    public void count1() {
+        long stamp = lock.writeLock();
+        try {
+            count++;
+            System.out.println("count：" + count);
+        } finally {
+            lock.unlockWrite(stamp);
+        }
     }
 
 }
