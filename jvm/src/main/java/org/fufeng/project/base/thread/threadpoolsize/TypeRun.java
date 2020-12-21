@@ -31,12 +31,12 @@ import java.util.concurrent.*;
 public class TypeRun {
 
     // 初始化线程池
-    private static ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
+    private final static ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
             8,
             8,
             10,
             TimeUnit.SECONDS,
-            new ArrayBlockingQueue<Runnable>(1000),
+            new ArrayBlockingQueue<>(1000),
             new ThreadPoolExecutor.DiscardOldestPolicy());
 
     public static void main(String[] args) throws InterruptedException, ExecutionException, TimeoutException {
@@ -55,6 +55,7 @@ public class TypeRun {
             //Future<?> future = threadPool.submit(new CPUType(runTimeList, wholeTimeList));
 
             Future<?> future = threadPool.submit(new IOType(runTimeList, wholeTimeList));
+
             futureList.add(future);
         }
 

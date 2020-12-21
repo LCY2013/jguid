@@ -21,6 +21,7 @@
         <module>concurrent</module>
         <module>jvm</module>
         <module>spring-boot-virtual-threads-experiment</module>
+        <module>coroutine</module>
     </modules>
 
     <properties>
