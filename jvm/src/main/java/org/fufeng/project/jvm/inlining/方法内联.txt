@@ -1,0 +1,117 @@
+    180    1       3       java.lang.AbstractStringBuilder::<init> (12 bytes)
+                              @ 1   java.lang.Object::<init> (1 bytes)
+    181    2       3       java.lang.String::lastIndexOf (52 bytes)
+                              @ 16   java.lang.Math::min (11 bytes)
+                              @ 48   java.lang.String::lastIndexOfSupplementary (70 bytes)   callee is too large
+    181    3       3       java.lang.Math::min (11 bytes)
+    182    6       3       java.lang.String::equals (81 bytes)
+    184    8     n 0       java.lang.System::arraycopy (native)   (static)
+    184    4 %     4       java.lang.String::hashCode @ 24 (55 bytes)
+    184    7       4       java.lang.String::charAt (29 bytes)
+    184    5       4       java.lang.Object::<init> (1 bytes)
+    185    9       3       java.io.UnixFileSystem::normalize (75 bytes)
+                              @ 1   java.lang.String::length (6 bytes)
+                              @ 19   java.lang.String::charAt (29 bytes)
+                                @ 18  java/lang/StringIndexOutOfBoundsException::<init> (not loaded)   not inlineable
+                              @ 44   java.io.UnixFileSystem::normalize (132 bytes)   callee is too large
+                                  185   12 %     4       java.lang.String::indexOf @ 37 (70 bytes)
+@ 69      185   13 %     4       sun.nio.cs.UTF_8$Encoder::encode @ 20 (359 bytes)
+ java.io.UnixFileSystem::normalize (132 bytes)   callee is too large
+    186   10       3       java.lang.String::length (6 bytes)
+    186   11       3       java.lang.StringBuilder::append (8 bytes)
+                              @ 2   java.lang.AbstractStringBuilder::append (50 bytes)   callee is too large
+    187   14       1       sun.instrument.TransformerManager::getSnapshotTransformerList (5 bytes)
+    187   16       3       java.lang.String::startsWith (72 bytes)
+    187   18  s!   3       sun.misc.URLClassPath::getLoader (243 bytes)
+                              @ 13   java.util.ArrayList::size (5 bytes)
+                              @ 33   java.util.Stack::empty (13 bytes)
+              s                 @ 1   java.util.Vector::size (5 bytes)
+              s               @ 47   java.util.Stack::pop (19 bytes)
+              s                 @ 1   java.util.Vector::size (5 bytes)
+              s                 @ 6   java.util.Stack::peek (25 bytes)
+              s                   @ 1   java.util.Vector::size (5 bytes)
+                                  @ 13  java/util/EmptyStackException::<init> (not loaded)   not inlineable
+    188   21     n 0       java.lang.Thread::currentThread (native)   (static)
+              s                   @ 21   java.util.Vector::elementAt (48 bytes)   callee is too large
+              s                 @ 14   java.util.Vector::removeElementAt (115 bytes)   callee is too large
+                              @ 67   sun.net.util.URLUtil::urlNoFragString (114 bytes)   callee is too large
+                              @ 76   java.util.HashMap::containsKey (18 bytes)
+                                @ 2   java.util.HashMap::hash (20 bytes)
+                                  @ 9   java.lang.String::hashCode (55 bytes)   callee is too large
+                                @ 6   java.util.HashMap::getNode (148 bytes)   callee is too large
+               !              @ 87   sun.misc.URLClassPath::getLoader (29 bytes)
+                                @ 6   sun.misc.URLClassPath$3::<init> (15 bytes)
+                                  @ 11   java.lang.Object::<init> (1 bytes)
+                                @ 13   java.security.AccessController::doPrivileged (0 bytes)   native method
+                                @ 22  java/security/PrivilegedActionException::getException (not loaded)   not inlineable
+                              @ 94   sun.misc.URLClassPath$Loader::getClassPath (2 bytes)   no static binding
+               !m             @ 107   sun.misc.URLClassPath::push (46 bytes)   callee is too large
+                              @ 169   java.util.ArrayList::size (5 bytes)
+              s               @ 173   sun.misc.URLClassPath::validateLookupCache (80 bytes)   callee is too large
+                              @ 182   java.util.ArrayList::add (29 bytes)
+                                @ 7   java.util.ArrayList::ensureCapacityInternal (13 bytes)
+                                  @ 6   java.util.ArrayList::calculateCapacity (16 bytes)
+                                    @ 10   java.lang.Math::max (11 bytes)
+                                  @ 9   java.util.ArrayList::ensureExplicitCapacity (26 bytes)
+                                    @ 22   java.util.ArrayList::grow (45 bytes)   callee is too large
+                              @ 193   java.util.HashMap::put (13 bytes)
+                                @ 2   java.util.HashMap::hash (20 bytes)
+                                  @ 9   java.lang.String::hashCode (55 bytes)   callee is too large
+                                @ 9   java.util.HashMap::putVal (300 bytes)   callee is too large
+                              @ 236   java.util.ArrayList::get (11 bytes)
+                                @ 2   java.util.ArrayList::rangeCheck (22 bytes)
+                                  @ 14   java.util.ArrayList::outOfBoundsMsg (32 bytes)   callee is too large
+                                  @ 17  java/lang/IndexOutOfBoundsException::<init> (not loaded)   not inlineable
+                                @ 7   java.util.ArrayList::elementData (7 bytes)
+    191   24       2       org.fufeng.project.jvm.inlining.MethodInlining::add2 (4 bytes)
+    192   25       2       org.fufeng.project.jvm.inlining.MethodInlining::add1 (12 bytes)
+                              @ 2   org.fufeng.project.jvm.inlining.MethodInlining::add2 (4 bytes)
+                              @ 7   org.fufeng.project.jvm.inlining.MethodInlining::add2 (4 bytes)
+    192   26       1       org.fufeng.project.jvm.inlining.MethodInlining::add2 (4 bytes)
+    192   27       4       org.fufeng.project.jvm.inlining.MethodInlining::add1 (12 bytes)
+    192   24       2       org.fufeng.project.jvm.inlining.MethodInlining::add2 (4 bytes)   made not entrant
+    192   15       3       java.lang.String::startsWith (7 bytes)
+                              @ 3   java.lang.String::startsWith (72 bytes)   callee is too large
+                              @ 2   org.fufeng.project.jvm.inlining.MethodInlining::add2 (4 bytes)   inline (hot)
+                              @ 7   org.fufeng.project.jvm.inlining.MethodInlining::add2 (4 bytes)   inline (hot)
+    192   19       3       java.util.ArrayList::get (11 bytes)
+                              @ 2   java.util.ArrayList::rangeCheck (22 bytes)
+    192   25       2       org.fufeng.project.jvm.inlining.MethodInlining::add1 (12 bytes)   made not entrant
+                                @ 14   java.util.ArrayList::outOfBoundsMsg (32 bytes)   callee is too large
+                                @ 17  java/lang/IndexOutOfBoundsException::<init> (not loaded)   not inlineable
+                              @ 7   java.util.ArrayList::elementData (7 bytes)
+    193   20       3       java.util.ArrayList::rangeCheck (22 bytes)
+                              @ 14   java.util.ArrayList::outOfBoundsMsg (32 bytes)
+                                @ 4   java.lang.StringBuilder::<init> (7 bytes)
+                                  @ 3   java.lang.AbstractStringBuilder::<init> (12 bytes)
+                                    @ 1   java.lang.Object::<init> (1 bytes)
+                                @ 9   java.lang.StringBuilder::append (8 bytes)
+                                  @ 2   java.lang.AbstractStringBuilder::append (50 bytes)   callee is too large
+                                @ 13   java.lang.StringBuilder::append (8 bytes)
+                                  @ 2   java.lang.AbstractStringBuilder::append (62 bytes)   callee is too large
+                                @ 18   java.lang.StringBuilder::append (8 bytes)
+                                  @ 2   java.lang.AbstractStringBuilder::append (50 bytes)   callee is too large
+                                @ 25   java.lang.StringBuilder::append (8 bytes)
+                                  @ 2   java.lang.AbstractStringBuilder::append (62 bytes)   callee is too large
+                                @ 28   java.lang.StringBuilder::toString (17 bytes)
+                                  @ 13   java.lang.String::<init> (82 bytes)   callee is too large
+                              @ 17  java/lang/IndexOutOfBoundsException::<init> (not loaded)   not inlineable
+    194   23       3       java.lang.System::getSecurityManager (4 bytes)
+    194   22       3       java.util.Arrays::copyOf (19 bytes)
+                              @ 11   java.lang.Math::min (11 bytes)
+                              @ 14   java.lang.System::arraycopy (0 bytes)   intrinsic
+    195   28 %     3       org.fufeng.project.jvm.inlining.MethodInlining::main @ 2 (23 bytes)
+    195   31       4       java.lang.String::indexOf (70 bytes)
+                              @ 12   org.fufeng.project.jvm.inlining.MethodInlining::add1 (12 bytes)
+                                @ 2   org.fufeng.project.jvm.inlining.MethodInlining::add2 (4 bytes)
+                                @ 7   org.fufeng.project.jvm.inlining.MethodInlining::add2 (4 bytes)
+    195   29       3       java.lang.AbstractStringBuilder::append (50 bytes)
+                              @ 5   java.lang.AbstractStringBuilder::appendNull (56 bytes)   callee is too large
+                              @ 10   java.lang.String::length (6 bytes)
+                              @ 21   java.lang.AbstractStringBuilder::ensureCapacityInternal (27 bytes)
+                                @ 17   java.lang.AbstractStringBuilder::newCapacity (39 bytes)   callee is too large
+                                @ 20   java.util.Arrays::copyOf (19 bytes)
+                                  @ 11   java.lang.Math::min (11 bytes)
+                                  @ 14   java.lang.System::arraycopy (0 bytes)   intrinsic
+                              @ 35   java.lang.String::getChars (62 bytes)   callee is too large
+
