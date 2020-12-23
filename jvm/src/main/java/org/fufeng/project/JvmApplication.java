@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author LuoCY
+ *
+ * jdk11 新增 jhsdb
+ * 使用例子: jhsdb jmap --heap --pid
  */
 @SpringBootApplication
 public class JvmApplication {

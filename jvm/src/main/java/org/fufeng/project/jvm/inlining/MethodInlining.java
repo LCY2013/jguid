@@ -35,7 +35,7 @@ public class MethodInlining {
         return x1 + x2;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         for (int i = 0; i < 100000; i++) {
             add1(1,2,3,4);
         }
