@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fufeng</title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    window.onload = function() {
+        $.ajax({
+            type: "GET",
+            url: "http://192.168.1.103:3001/zy-security/jobrecruitment/categorylist?cname=zyks_cjcx",
+            success: function(data) {
+                console.log(data);
+                alert(data)
+            }/*,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Bearer SQo53U2NcrueE2CGNpyAIZlY2M9_2rMagPFS-jygspwqQYh2dvyUO_u8jTwgH1Fh1P7ZrF4DqTzYA-uuG_qyBM7w8je7gd4toZBGboSGmXujpnSHx1BoWXYP1a8QhO3d1gSxeRyZREje_hxm6JfVuB9dRF-rV2ZPAB8PC24er02QUbu61sgfXFWBACdvtJeWwv6NFVjeOBc7P7FegruOZSZD-mi35xa_FVoIN84TcAlJC58v-UGI24qgYUDSclZZ8cgPhp0CqNdiNO6-WdLp8N8RJbtaGLLeeEsdTZV7aUcmjMnRIEHE2ljc9RWAhtrLUBd-LubSNVq4WtVOTYI0LSxne4FkC_KfBTvXMR7T0jrFggSkJbUWPlQpYabC2WV40iXhDj4BAIan1sDUiY7j4rP0kP5iNYrSttq0LVWPRRBM0QvO_0bT9efGnUbp2CCfU6KYocdFlBbxB-bxiBzpNYBYsJYW8iu5j7yeX20yus37urjIFF-9c28q6lzHsZik");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+            }*/
+        });
+    }
+</script>
+</html>
