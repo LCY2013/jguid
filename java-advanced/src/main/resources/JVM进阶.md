@@ -156,11 +156,39 @@ invokedynamic，JDK7 新增加的指令，是实现“动态类型语言”(Dyna
 如果两个线程同时调用某个对象的同一方法，则它们都可以访问到这个对象的成员变量，但每个线程的局部变量副本是独立的。
 ```
 
+#### JVM 内存整体结构
+![JVM内存整体结构](images/JVM内存整体结构.png)
+```text
+每启动一个线程，JVM 就会在栈空间栈分 配对应的 线程栈, 比如 1MB 的空间(- Xss1m)。
 
+线程栈也叫做 Java 方法栈。 如果使用了 JNI 方法，则会分配一个单独的本地方法栈 (Native Stack)。
 
+线程执行过程中，一般会有多个方法组成调 用栈(Stack Trace), 比如 A 调用 B，B 调用 C。。。每执行到一个方法，就会创建 对应的 栈帧(Frame)。
+```
 
+#### JVM 栈内存结构
+![JVM栈内存结构](images/JVM栈内存结构.png)
+```text
+栈帧是一个逻辑上的概念，具体的大小在一个方法编写完成后基本上就能确定。
 
+比如返回值 需要有一个空间存放吧，每个 局部变量都需要对应的地址空间，此外还 有给指令使用的 操作数栈，以及 class 指 针(标识这个栈帧对应的是哪个类的方法, 指向非堆里面的 Class 对象)。
+```
 
+#### JVM 堆内存结构
+![JVM堆内存结构](images/JVM堆内存结构.png)
+```text
+堆内存是所有线程共用的内存空间，JVM 将Heap 内存分为年轻代(Young generation)和 老年代(Old generation, 也叫 Tenured)两部分。
+
+年轻代还划分为 3 个内存池，新生代(Eden space)和存活区(Survivor space), 在大部分 GC 算法中有 2 个存活区(S0, S1)，在我们可 以观察到的任何时刻，S0 和 S1 总有一个是空的, 但一般较小，也不浪费多少空间。
+
+Non-Heap 本质上还是 Heap，只是一般不归 GC 管理，里面划分为 3 个内存池。
+
+Metaspace, 以前叫持久代(永久代, Permanent generation), Java8 换了个名字叫 Metaspace.
+
+CCS, Compressed Class Space, 存放 class 信 息的，和 Metaspace 有交叉。
+
+Code Cache, 存放 JIT 编译器编译后的本地机器 代码。
+```
 
 
 
