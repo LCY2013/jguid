@@ -1,8 +1,8 @@
 package com.lcydream.project.jguid.cas;
 
 /**
- *  􏴒􏲮 JDK 􏰠􏰧􏰢 javap 􏼕􏼖􏳓􏰃 SynchronizedDemo 􏴴􏰢􏹼􏰊􏲱􏲲􏶑􏲠􏷆􏴗􏹰􏷱􏸾􏹔􏲛􏴴􏰢􏵳􏲞􏰀􏰁 􏽁􏵻
- *   javac SynchronizedDemo.java 􏼕􏼖􏲄􏰩
+ *   JDK  javap  SynchronizedDemo
+ *   javac SynchronizedDemo.java
  *   javap -c -s -v -l SynchronizedDemo.class
  *
  */
