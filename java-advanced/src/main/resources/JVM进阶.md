@@ -96,10 +96,21 @@ invokedynamic，JDK7 新增加的指令，是实现“动态类型语言”(Dyna
 6. 通过 ClassLoader 默认的 loadClass 方法，也不会触发初始化动作(加载了，但是 不初始化)。
 ```
 
+#### 三类类加载器
+```text
+1. 启动类加载器(BootstrapClassLoader) 
+2. 扩展类加载器(ExtClassLoader)
+3. 应用类加载器(AppClassLoader)
+```
+![jvm类加载器](images/jvm类加载器.png)
 
-
-
-
+#### 加载器特点
+```text
+1. 双亲委托 
+2. 负责依赖 
+3. 缓存加载
+```
+![加载器特点](images/加载器特点.png)
 
 
 
