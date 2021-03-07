@@ -112,6 +112,23 @@ invokedynamic，JDK7 新增加的指令，是实现“动态类型语言”(Dyna
 ```
 ![加载器特点](images/加载器特点.png)
 
+#### 显示当前 ClassLoader 加载了哪些 Jar? (org.fufeng.jvm.classloader)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
