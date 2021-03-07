@@ -216,6 +216,129 @@ JMM 规范明确定义了不同的线程之间，通过哪些方式，在什么�
 JMM 规范的是线程间的交互操作，而不管线程内部对局部变量进 行的操作。
 ```
 
+### JVM 启动参数
+![jvm参数](images/jvm参数.png)
+
+```text
+java [options] classname [args]
+
+java [options] -jar filename [args]
+
+LuoCY@MacBook-pro1226 ~> jps -v                                                                                         127
+42818  -Xms128m -Xmx4096m
+
+LuoCY@MacBook-pro1226 ~> jps -m
+49686 Jps -m
+```
+
+```text
+-server
+-Dfile.encoding=UTF-8 
+-Xmx8g 
+-XX:+UseG1GC 
+-XX:MaxPermSize=256m
+
+以-开头为标准参数，所有的 JVM 都要实现这些参 数，并且向后兼容。
+-D 设置系统属性。
+以 -X 开头为非标准参数， 基本都是传给 JVM 的， 默认 JVM 实现这些参数的功能，但是并不保证所 有 JVM 实现都满足，且不保证向后兼容。 可以使 用 java -X 命令来查看当前 JVM 支持的非标准参 数。
+以 –XX:开头为非稳定参数, 专门用于控制 JVM 的行为，跟具体的 JVM 实现有关，随时可能会在 下个版本取消。
+-XX:+-Flags 形式, +- 是对布尔值进行开关。 
+-XX:key=value 形式, 指定某个选项的值。
+```
+
+```text
+1. 系统属性参数 
+2. 运行模式参数 
+3. 堆内存设置参数 
+4. GC 设置参数
+5. 分析诊断参数 
+6. JavaAgent 参数
+```
+
+#### JVM 启动参数--系统属性
+```text
+-Dfile.encoding=UTF-8 
+-Duser.timezone=GMT+08
+-Dmaven.test.skip=true 
+-Dio.netty.eventLoopThreads=8
+```
+
+```text
+System.setProperty("a","A100"); 
+String a=System.getProperty("a");
+
+Linux上还可以通过: a=A100 java XXX
+```
+
+#### JVM 启动参数--运行模式
+```text
+1. -server:设置 JVM 使用 server 模式，特点是启动速度比较慢，但运行时性能和内存管理效率 很高，适用于生产环境。在具有 64 位能力的 JDK 环境下将默认启用该模式，而忽略 -client 参 数。
+2. -client :JDK1.7 之前在32位的 x86 机器上的默认值是 -client 选项。设置 JVM 使用 client 模 式，特点是启动速度比较快，但运行时性能和内存管理效率不高，通常用于客户端应用程序或 者 PC 应用开发和调试。此外，我们知道 JVM 加载字节码后，可以解释执行，也可以编译成本 地代码再执行，所以可以配置 JVM 对字节码的处理模式:
+3. -Xint:在解释模式(interpreted mode)下运行，-Xint 标记会强制 JVM 解释执行所有的字节 码，这当然会降低运行速度，通常低10倍或更多。
+4. -Xcomp:-Xcomp 参数与-Xint 正好相反，JVM 在第一次使用时会把所有的字节码编译成本地 代码，从而带来最大程度的优化。【注意预热】
+5. -Xmixed:-Xmixed 是混合模式，将解释模式和编译模式进行混合使用，由JVM 自己决定，这是 JVM 的默认模式，也是推荐模式。 我们使用 java -version 可以看到 mixed mode 等信息。
+```
+
+#### JVM 启动参数--堆内存
+```text
+堆内(Xms-Xmx)
+非堆+堆外
+1. 如果什么都不配置会如何?
+2. Xmx 是否与 Xms 设置相等?
+3. Xmx 设置为机器内存的什么比例合适?
+4. 画一下 Xmx、Xms、Xmn、Meta、DirectMemory、Xss 这些内存参数的关系
 
 
+-Xmx, 指定最大堆内存。 如 -Xmx4g. 这只是限制了 Heap 部分的最大值为4g。这个内存不包括栈内存，也不包括堆外使用的内存。
+-Xms, 指定堆内存空间的初始大小。 如 -Xms4g。 而且指定的内存大小，并 不是操作系统实际分配的初始值，而是GC先规划好，用到才分配。 专用服务 器上需要保持 –Xms 和 –Xmx 一致，否则应用刚启动可能就有好几个 FullGC。 当两者配置不一致时，堆内存扩容可能会导致性能抖动。
+-Xmn, 等价于 -XX:NewSize，使用 G1 垃圾收集器 不应该 设置该选项，在其 他的某些业务场景下可以设置。官方建议设置为 -Xmx 的 1/2 ~ 1/4.
+-XX:MaxPermSize=size, 这是 JDK1.7 之前使用的。Java8 默认允许的 Meta空间无限大，此参数无效。
+-XX:MaxMetaspaceSize=size, Java8 默认不限制 Meta 空间, 一般不允许设 置该选项。
+-XX:MaxDirectMemorySize=size，系统可以使用的最大堆外内存，这个参 数跟 -Dsun.nio.MaxDirectMemorySize 效果相同。
+-Xss, 设置每个线程栈的字节数。 例如 -Xss1m 指定线程栈为 1MB，与- XX:ThreadStackSize=1m 等价
+```
 
+#### JVM 启动参数 -- GC 相关
+![GC相关1](images/GC相关1.png)
+![GC相关2](images/GC相关2.png)
+```text
+1. 各个 JVM 版本的默认 GC 是什么?
+
+-XX:+UseG1GC:使用 G1 垃圾回收器 
+-XX:+UseConcMarkSweepGC:使用 CMS 垃圾回收器 
+-XX:+UseSerialGC:使用串行垃圾回收器 
+-XX:+UseParallelGC:使用并行垃圾回收器
+// Java 11+
+-XX:+UnlockExperimentalVMOptions -XX:+UseZGC
+// Java 12+
+-XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC
+```
+
+#### JVM 启动参数--分析诊断
+```text
+-XX:+-HeapDumpOnOutOfMemoryError 选项, 当 OutOfMemoryError 产生，即内存溢出(堆内存或持久代)时，自动 Dump 堆内存。
+示例用法: java -XX:+HeapDumpOnOutOfMemoryError -Xmx256m ConsumeHeap
+
+-XX:HeapDumpPath 选项, 与 HeapDumpOnOutOfMemoryError 搭配使用, 指定内存溢出时 Dump 文件的目 录。如果没有指定则默认为启动 Java 程序的工作目录。
+示例用法: java -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/usr/local/ ConsumeHeap
+自动 Dump 的 hprof 文件会存储到 /usr/local/ 目录下。
+
+-XX:OnError 选项, 发生致命错误时(fatal error)执行的脚本。
+例如, 写一个脚本来记录出错时间, 执行一些命令, 或者 curl 一下某个在线报警的 url. 示例用法:java -XX:OnError="gdb - %p" MyApp
+可以发现有一个 %p 的格式化字符串，表示进程 PID。
+
+-XX:OnOutOfMemoryError 选项, 抛出 OutOfMemoryError 错误时执行的脚本。 
+-XX:ErrorFile=filename 选项, 致命错误的日志文件名,绝对路径或者相对路径。 
+-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1506，远程调试
+```
+
+#### JVM 启动参数 --JavaAgent
+```text
+Agent 是 JVM 中的一项黑科技, 可以通过无侵入方式来做很多事情，比如注入 AOP 代码，执行统计等等，权限非常大。这里简单介绍一下配置选项，详细功能需要专门来讲。
+设置 agent 的语法如下:
+-agentlib:libname[=options] 启用 native 方式的 agent, 参考 LD_LIBRARY_PATH 路径。 
+-agentpath:pathname[=options] 启用 native 方式的 agent。 
+-javaagent:jarpath[=options] 启用外部的 agent 库, 比如 pinpoint.jar 等等。
+-Xnoagent 则是禁用所有 agent。 以下示例开启 CPU 使用时间抽样分析:
+JAVA_OPTS="-agentlib:hprof=cpu=samples,file=cpu.samples.log"
+```
