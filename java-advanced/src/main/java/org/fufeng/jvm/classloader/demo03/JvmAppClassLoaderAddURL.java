@@ -40,6 +40,7 @@ public class JvmAppClassLoaderAddURL {
             URL url = new URL(appPath);
             addURL.invoke(urlClassLoader,url);
             // 效果等同于Class.forName("").newInstance()一样
+            // 载入指定类。注意一定要带上类的包名
             final Class<?> aClass = Class.forName("org.fufeng.object.ClassName");
             System.out.println(aClass);
         }catch (Exception e){
