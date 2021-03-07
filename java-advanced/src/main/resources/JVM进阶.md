@@ -116,7 +116,13 @@ invokedynamic，JDK7 新增加的指令，是实现“动态类型语言”(Dyna
 
 #### 自定义 ClassLoader(org.fufeng.jvm.classloader.demo02)
 
-
+#### 添加引用类的几种方式
+```text
+1、放到 JDK 的 lib/ext 下，或者-Djava.ext.dirs
+2、 java –cp/classpath 或者 class 文件放到当前路径
+3、自定义 ClassLoader 加载
+4、拿到当前执行类的 ClassLoader，反射调用 addUrl 方法添加 Jar 或路径(JDK9 无效)。
+```
 
 
 
