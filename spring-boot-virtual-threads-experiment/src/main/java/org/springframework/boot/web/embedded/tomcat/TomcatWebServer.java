@@ -193,7 +193,7 @@ public class TomcatWebServer implements WebServer {
     private void startDaemonAwaitThread() {
         Thread awaitThread = GlobalThreadFactory.create(() -> TomcatWebServer.this.tomcat.getServer().await(), "container-" + (containerCounter.get()));
         awaitThread.setContextClassLoader(getClass().getClassLoader());
-        awaitThread.setDaemon(false);
+//        awaitThread.setDaemon(false);
         awaitThread.start();
     }
 

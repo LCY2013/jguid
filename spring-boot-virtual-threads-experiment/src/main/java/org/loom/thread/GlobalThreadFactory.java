@@ -17,6 +17,8 @@
  */
 package org.loom.thread;
 
+import org.apache.tomcat.util.threads.VirtualThreadExecutor;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -33,7 +35,8 @@ public class GlobalThreadFactory implements ThreadFactory {
     // We want to limit the number of kernel threads that host our VirtualThreads.
     // If we don't set the executor, a default ForkJoin pool gets spun up that seems to be subject to unbounded growth.
     public static Executor host = Executors
-            .newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+//            .newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+            .newVirtualThreadPerTaskExecutor();
 
     public static boolean useVirtualThreads = Boolean
             .parseBoolean(System.getProperty("virtualThreads", "false"));
@@ -54,39 +57,41 @@ public class GlobalThreadFactory implements ThreadFactory {
 
         // Note that VirtualThreads can't have a ThreadGroup
         if (useVirtualThreads) {
-            builder.virtual(host);
+//            builder.virtual(host);
         }
     }
 
     public static Thread create(Runnable runnable, String name) {
 
-        Thread.Builder builder = Thread.builder().name(name).task(runnable);
-        customize(builder);
-        return doBuild(builder);
+//        Thread.Builder builder = Thread.builder().name(name).task(runnable);
+//        customize(builder);
+//        return doBuild(builder);
+        return Thread.ofVirtual().name(name).unstarted(runnable);
     }
 
     public static Thread create(Runnable runnable, String name, int threadPriority, boolean daemon) {
-
-        Thread.Builder builder = Thread.builder().name(name).task(runnable)
+        /*Thread.Builder builder = Thread.ofPlatform().name(name).unstarted(runnable)
                 .priority(threadPriority).daemon(daemon);
         customize(builder);
-        return doBuild(builder);
+        return doBuild(builder);*/
+        return Thread.ofVirtual().name(name).unstarted(runnable);
     }
 
     @Override
     public Thread newThread(Runnable runnable) {
 
-        Thread.Builder builder = Thread.builder()
+        /*Thread.Builder builder = Thread.ofPlatform()
                 .name(threadName + "-" + threadCounter.incrementAndGet())
                 .task(runnable)
                 .daemon(daemon);
 
-        customize(builder);
+        customize(builder);*/
 
-        return doBuild(builder);
+//        return doBuild(builder);
+        return Thread.ofVirtual().name(threadName + "-" + threadCounter.incrementAndGet()).unstarted(runnable);
     }
 
-    private static Thread doBuild(Thread.Builder builder) {
+    /*private static Thread doBuild(Thread.Builder builder) {
 
         Thread thread = builder.build();
 
@@ -99,6 +104,6 @@ public class GlobalThreadFactory implements ThreadFactory {
                     .incrementAndGet() + " -> " + thread.getName());
         }
         return thread;
-    }
+    }*/
 
 }
