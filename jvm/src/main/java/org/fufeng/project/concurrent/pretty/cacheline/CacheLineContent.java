@@ -1,6 +1,6 @@
 package org.fufeng.project.concurrent.pretty.cacheline;
 
-import sun.misc.Contended;
+//import sun.misc.Contended;
 
 /**
  * @ClassName: CacheLineContent
