@@ -20,7 +20,7 @@
 
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maver.compiler.version>3.13.0</maver.compiler.version>
+        <maven.compiler.version>3.13.0</maven.compiler.version>
         <asm.version>3.3.1</asm.version>
     </properties>
 
@@ -41,6 +41,7 @@
             <artifactId>asm</artifactId>
             <version>${asm.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -52,7 +53,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maver.compiler.version}</version>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <parameters>true</parameters>
                     <source>${maven.compiler.source}</source>
