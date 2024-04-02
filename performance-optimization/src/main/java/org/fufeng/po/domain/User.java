@@ -1,4 +1,4 @@
-package org.fufeng.po.memory;
+package org.fufeng.po.domain;
 
 /**
  *
@@ -25,6 +25,14 @@ public class User {
     }
 
     public void setName(String name) {
+        this.name = name;
+    }
+
+    public User() {
+    }
+
+    public User(Integer id, String name) {
+        this.id = id;
         this.name = name;
     }
 

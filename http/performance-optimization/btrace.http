@@ -1,0 +1,17 @@
+### GET request with parameter
+GET http://localhost:8080/btrace/arg1?name=fufeng
+
+### GET request with parameter
+GET http://localhost:8080/btrace/constructor?name=fufeng&id=3
+
+### GET request with parameter
+GET http://localhost:8080/btrace/same1?name=fufeng
+
+### GET request with parameter
+GET http://localhost:8080/btrace/same2?name=fufeng&id=3
+
+### GET request with parameter
+GET http://localhost:8080/btrace/exception
+
+### GET request with parameter
+GET http://localhost:8080/btrace/arg2?name=fufeng&id=3

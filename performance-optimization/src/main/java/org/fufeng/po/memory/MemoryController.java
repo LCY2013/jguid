@@ -1,5 +1,6 @@
 package org.fufeng.po.memory;
 
+import org.fufeng.po.domain.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,9 +31,7 @@ public class MemoryController {
     public String heap() {
         int i = 0;
         while (true) {
-            User user = new User();
-            user.setId(i);
-            user.setName("fufeng" + i);
+            User user = new User(i, "fufeng" + i);
             users.add(user);
             i++;
         }
