@@ -1,7 +1,6 @@
 package org.fufeng.design.principle.openclose;
 
 /**
- * TODO
  *
  * @author fufeng
  * @Date 2024-04-04 10:33
