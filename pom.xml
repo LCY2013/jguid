@@ -24,6 +24,7 @@
         <module>coroutine</module>
         <module>java-advanced</module>
         <module>performance-optimization</module>
+        <module>design-patterns</module>
     </modules>
 
     <properties>
