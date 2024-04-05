@@ -1,7 +1,13 @@
 package org.fufeng.design.pattern.creational.prototype;
 
+import java.util.ArrayList;
+
 /**
  * 原型模式
+ * jdk clone
+ * {@link ArrayList}
+ * {@link java.util.HashMap}
+ *
  *
  * @author fufeng
  * {@code @Date} 2024-04-05 17:12
