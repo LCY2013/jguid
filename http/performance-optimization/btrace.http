@@ -1,3 +1,7 @@
+GET http://localhost:80/api/item?id=99
+Accept: application/json
+
+###
 ### GET request with parameter
 GET http://localhost:8080/btrace/arg1?name=fufeng
 
@@ -15,3 +19,9 @@ GET http://localhost:8080/btrace/exception
 
 ### GET request with parameter
 GET http://localhost:8080/btrace/arg2?name=fufeng&id=3
+
+### GET request with parameter
+http://localhost:8080/virtual
+
+### GET request with parameter
+http://localhost:8080/blocking
