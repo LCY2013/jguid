@@ -39,7 +39,8 @@ public class SpringVirtualThreadApplication {
         @GetMapping("/virtual")
         public String virtualThreadOperation() throws InterruptedException {
             // 模拟阻塞操作
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
+            //Thread.sleep(10);
             return "Virtual thread operation handled by: " + Thread.currentThread();
         }
     }
