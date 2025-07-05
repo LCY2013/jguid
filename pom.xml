@@ -25,6 +25,7 @@
         <module>java-advanced</module>
         <module>performance-optimization</module>
         <module>design-patterns</module>
+        <module>jexpression</module>
     </modules>
 
     <properties>
