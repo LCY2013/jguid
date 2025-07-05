@@ -16,13 +16,49 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <solon-expression.version>3.3.3</solon-expression.version>
+        <qlexpress4.version>4.0.0-beta.8</qlexpress4.version>
+        <EvalEx.version>3.5.0</EvalEx.version>
+        <janino.version>3.1.12</janino.version>
+        <mvel2.version>2.5.2.Final</mvel2.version>
+        <commons-jexl3.version>3.5.0</commons-jexl3.version>
     </properties>
 
     <dependencies>
+        <!--https://solon.noear.org/article/1042-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-expression</artifactId>
             <version>${solon-expression.version}</version>
+        </dependency>
+        <!--https://github.com/alibaba/QLExpress?tab=readme-ov-file-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>qlexpress4</artifactId>
+            <version>${qlexpress4.version}</version>
+        </dependency>
+        <!--https://github.com/ezylang/EvalEx-->
+        <dependency>
+            <groupId>com.ezylang</groupId>
+            <artifactId>EvalEx</artifactId>
+            <version>${EvalEx.version}</version>
+        </dependency>
+        <!--https://github.com/janino-compiler/janino-->
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>${janino.version}</version>
+        </dependency>
+        <!--https://github.com/mvel/mvel/tree/master-->
+        <dependency>
+            <groupId>org.mvel</groupId>
+            <artifactId>mvel2</artifactId>
+            <version>${mvel2.version}</version>
+        </dependency>
+        <!--https://github.com/apache/commons-jexl-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-jexl3</artifactId>
+            <version>${commons-jexl3.version}</version>
         </dependency>
     </dependencies>
 
